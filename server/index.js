@@ -5,6 +5,8 @@ import cors from "cors"
 import dotenv from "dotenv"
 import helmet from "helmet"
 import authRoutes from "./routes/auth.js"
+import userRoutes from "./routes/users.js"
+import postRoutes from "./routes/posts.js"
 
 // CONFIGURATION
 dotenv.config()
@@ -18,6 +20,8 @@ app.use(cors())
 
 // ROUTES
 app.use("/auth", authRoutes)
+app.use("users", userRoutes)
+app.use("posts", postRoutes)
 
 // MONGOOSE SETUP
 const PORT = process.env.PORT || 5001;
