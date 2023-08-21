@@ -1,24 +1,24 @@
 import mongoose from "mongoose";
 
-const CommentSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: true,
-    },
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    userPictureUrl: String,
-    date: {
-        type: Date,
-        required: true
-    }
-});
+// const CommentSchema = new mongoose.Schema({
+//     userId: {
+//         type: String,
+//         required: true,
+//     },
+//     firstName: {
+//         type: String,
+//         required: true,
+//     },
+//     lastName: {
+//         type: String,
+//         required: true,
+//     },
+//     userPictureUrl: String,
+//     date: {
+//         type: Date,
+//         required: true
+//     }
+// });
 
 const PostSchema = new mongoose.Schema(
     {
@@ -42,7 +42,10 @@ const PostSchema = new mongoose.Schema(
             type: Map,
             of: Boolean
         },
-        comments: [CommentSchema],
+        comments: {
+            type: Array,
+            default: [],
+        },
     }, {timestamps: true}
 )
 
