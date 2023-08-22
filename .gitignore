@@ -6,3 +6,4 @@ yarn-debug.log*
 yarn-error.log*
 /.idea
 /server/node_modules/
+/server/data/index.js

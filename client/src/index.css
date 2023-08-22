@@ -1,7 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --color-primary-dark: 14 116 144;
+        --color-primary-main: 6 182 212;
+        --color-primary-light: 236 254 255;
+
+        --color-neutral-dark: 64 64 64;
+        --color-neutral-main: 115 115 115;
+        --color-neutral-mediumMain: 163 163 163;
+        --color-neutral-medium: 212 212 212;
+        --color-neutral-light: 250 250 250;
+
+        --color-bkg-default: 255 255 255;
+        --color-bkg-alt: 250 250 250;
+    }
+    :root[data-theme="dark"]{
+        --color-primary-dark: 165 243 252;
+        --color-primary-main: 6 182 212;
+        --color-primary-light: 21 94 117;
+
+        --color-neutral-dark: 245 245 245;
+        --color-neutral-main: 229 229 229;
+        --color-neutral-mediumMain: 163 163 163;
+        --color-neutral-medium: 212 212 212;
+        --color-neutral-light: 250 250 250;
+
+        --color-bkg-default: 23 23 23;
+        --color-bkg-alt: 38 38 38;
+    }
+}
 
 html,
 body,
