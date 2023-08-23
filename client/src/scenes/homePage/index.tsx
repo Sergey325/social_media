@@ -1,3 +1,5 @@
+import Navbar from "../navbar";
+
 type Props = {
 
 };
@@ -5,7 +7,7 @@ type Props = {
 const HomePage = (props: Props) => {
     return (
         <div>
-            Home Page
+            <Navbar/>
         </div>
     );
 };

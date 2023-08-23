@@ -10,15 +10,15 @@ function App() {
     const mode = useSelector((state : RootState) => state.mode)
 
     useEffect(() => {
-        if(mode === "dark") {
-            document.documentElement.classList.add("dark");
+        if(mode !== "light") {
+            document.documentElement.setAttribute("data-theme", "dark");
         } else{
-            document.documentElement.classList.remove("dark");
+            document.documentElement.setAttribute("data-theme", "light");
         }
     }, [mode])
 
     return (
-        <div className="">
+        <div className="px-5 sm:px-20 bg-bkg-default transition">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<LoginPage/>} />
