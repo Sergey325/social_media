@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* setup of color palette */
 @layer base {
     :root {
         --color-primary-dark: 14 116 144;
@@ -32,6 +33,10 @@
         --color-bkg-alt: 38 38 38;
     }
 }
+
+/* rid of selection with tap on mobile */
+* { -webkit-tap-highlight-color: transparent;  }
+
 
 html,
 body,

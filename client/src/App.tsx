@@ -18,7 +18,7 @@ function App() {
     }, [mode])
 
     return (
-        <div className="px-5 sm:px-20 bg-bkg-default transition">
+        <div className="h-full bg-bkg-default transition">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<LoginPage/>} />
