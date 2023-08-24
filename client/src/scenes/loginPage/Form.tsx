@@ -6,10 +6,11 @@ import axios from "axios";
 import {setLogin} from "../../state";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import ImageUpload from "../../components/ImageUpload";
 
 
 const Form = () => {
-    const [pageType, setPageType] = useState("login");
+    const [pageType, setPageType] = useState("register");
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,6 +22,8 @@ const Form = () => {
         handleSubmit,
         reset,
         formState: {errors},
+        watch,
+        setValue
     } = useForm<FieldValues>({
         defaultValues: {
             firstName: '',
@@ -32,6 +35,17 @@ const Form = () => {
             imageSrc: '',
         }
     })
+
+    const imageSrc = watch('imageSrc')
+
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+        })
+    }
+
 
     const registerUser = async (formData: FieldValues) => {
         try {
@@ -75,7 +89,37 @@ const Form = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-4 text-xs lg:text-base">
+        <div className="w-full flex flex-col gap-4 text-xs lg:text-sm">
+            <span className=" text-lg text-neutral-dark">Welcome to Socialmedia, the Social Media for Sociopaths!</span>
+            <div className="flex gap-4">
+                <Input
+                    id="firstName"
+                    label='First Name'
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <Input
+                    id="lastName"
+                    label='lastName'
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+            </div>
+            <Input
+                id="occupation"
+                label='Occupation'
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+            />
+            <div className="rounded-md border-2 border-neutral-400 p-2">
+                <ImageUpload/>
+            </div>
             <Input
                 id="email"
                 label='Email'
@@ -94,11 +138,14 @@ const Form = () => {
                 required
             />
 
-            <Button
-                label={"Submit"}
-                disabled={isLoading}
-                onClick={handleSubmit(onSubmit)}
-            />
+            <div className="text-sm text-bkg-alt">
+                <Button
+                    label={isLogin ? "LOGIN" : "REGISTER"}
+                    disabled={isLoading}
+                    onClick={handleSubmit(onSubmit)}
+                />
+            </div>
+
         </div>
     );
 };

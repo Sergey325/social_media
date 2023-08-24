@@ -22,13 +22,13 @@ const Button = ({label, onClick, disabled, outline, small, icon: Icon, gradient}
                 transition-all
                 duration-300
                 w-full
-                ${outline ? "bg-slate-900" : "bg-slate-400"}
-                ${outline ? "shadow-[0_0_0_1px_rgba(100,116,139,1)]" : "border-slate-400"}
-                ${outline ? "hover:shadow-[0_0_0_3px_rgba(100,116,139,1)]" : gradient ? "hover:drop-shadow-[0_2px_6px_rgba(137,63,237,0.90)]" : "hover:drop-shadow-[0_2px_6px_rgba(98,143,200,0.90)]"}
-                ${outline ? "text-gray-300" : "text-gray-950"}
+                ${outline ? "bg-slate-900" : "bg-primary-main"}
+                ${outline ? "shadow-[0_0_0_1px_rgba(100,116,139,1)]" : "shadow-[0_0_0_1px_rgba(6,182,212,1)]"}
+                ${outline ? "hover:shadow-[0_0_0_3px_rgba(100,116,139,1)]" : gradient ? "hover:drop-shadow-[0_2px_6px_rgba(137,63,237,0.90)]" : "hover:drop-shadow-[0_1px_3px_rgba(6,182,212,0.50)]"}
+                ${outline ? "text-gray-300" : "text-bkg-alt"}
                 ${gradient && "bg-gradient-to-br from-indigo-500 to-purple-600"}
                 ${gradient && ""}
-                ${small ? "py-1" : "py-3"}
+                ${small ? "py-1" : "py-4"}
                 ${small ? "text-sm" : "text-md"}
                 ${small ? "font-light" : "font-semibold"}
                 select-none
