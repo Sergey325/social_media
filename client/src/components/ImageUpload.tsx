@@ -5,10 +5,14 @@ declare global {
     var cloudinary: any
 }
 
-const ImageUpload = () => {
+type Props = {
+    onChange: (e: string) => void
+}
+
+const ImageUpload = ({onChange}: Props) => {
     const [uploadedImageUrl, setUploadedImageUrl] = useState("")
 
-    const myWidget = window.cloudinary.createUploadWidget(
+    const uploadWidget = window.cloudinary.createUploadWidget(
         {
             cloudName: "dby8qzoac",
             uploadPreset: "react_unsigned",
@@ -21,13 +25,14 @@ const ImageUpload = () => {
         (error: any, result: any) => {
             if (!error && result && result.event === "success") {
                 setUploadedImageUrl(result.info.secure_url)
+                onChange(result.info.secure_url)
             }
         }
     );
 
     return (
         <div
-            onClick={() => myWidget.open()}
+            onClick={() => uploadWidget.open()}
             className="
                 relative
                 cursor-pointer
@@ -43,22 +48,22 @@ const ImageUpload = () => {
         >
             {
                 uploadedImageUrl
-                    ?
-                    <div className="flex justify-center items-center w-[100px] h-[100px] rounded-full">
-                        <img
-                            src={uploadedImageUrl}
-                            className="object-cover w-full h-full rounded-full"
-                            alt="uploadedImage"
-                        />
+                ?
+                <div className="flex justify-center items-center w-[100px] h-[100px] rounded-full">
+                    <img
+                        src={uploadedImageUrl}
+                        className="object-cover w-full h-full rounded-full"
+                        alt="uploadedImage"
+                    />
+                </div>
+                :
+                <>
+                    <TbPhotoPlus size={40}/>
+                    <div className="text-base font-light">
+                        Click to upload your image
                     </div>
-                    :
-                    <>
-                        <TbPhotoPlus size={40}/>
-                        <div className="text-base font-light">
-                            Click to upload your image
-                        </div>
 
-                    </>
+                </>
             }
         </div>
     )

@@ -10,7 +10,7 @@ import ImageUpload from "../../components/ImageUpload";
 
 
 const Form = () => {
-    const [pageType, setPageType] = useState("register");
+    const [pageType, setPageType] = useState("login");
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -32,11 +32,11 @@ const Form = () => {
             password: '',
             location: '',
             occupation: '',
-            imageSrc: '',
+            pictureUrl: '',
         }
     })
 
-    const imageSrc = watch('imageSrc')
+    const pictureUrl = watch('pictureUrl')
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -49,7 +49,7 @@ const Form = () => {
 
     const registerUser = async (formData: FieldValues) => {
         try {
-            const response = await axios.post('/auth/register', formData);
+            const response = await axios.post('http://localhost:3001/auth/register', formData);
             const savedUser = response.data;
             reset();
             if (savedUser) {
@@ -62,7 +62,7 @@ const Form = () => {
 
     const loginUser = async (formData: FieldValues) => {
         try {
-            const response = await axios.post("/auth/login", formData)
+            const response = await axios.post("http://localhost:3001/auth/login", formData)
             const loggedIn = response.data
             reset()
 
@@ -82,6 +82,8 @@ const Form = () => {
     };
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        //
+        console.log(data)
         setIsLoading(true)
         if (isLogin) await loginUser(data)
         if (isRegister) await registerUser(data)
@@ -91,35 +93,49 @@ const Form = () => {
     return (
         <div className="w-full flex flex-col gap-4 text-xs lg:text-sm">
             <span className=" text-lg text-neutral-dark">Welcome to Socialmedia, the Social Media for Sociopaths!</span>
-            <div className="flex gap-4">
-                <Input
-                    id="firstName"
-                    label='First Name'
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
-                />
-                <Input
-                    id="lastName"
-                    label='lastName'
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
-                />
-            </div>
-            <Input
-                id="occupation"
-                label='Occupation'
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <div className="rounded-md border-2 border-neutral-400 p-2">
-                <ImageUpload/>
-            </div>
+            {
+                pageType === "register" &&
+                <>
+                    <div className="flex gap-4">
+                        <Input
+                            id="firstName"
+                            label='First Name'
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                            required
+                        />
+                        <Input
+                            id="lastName"
+                            label='lastName'
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                            required
+                        />
+                    </div>
+                    <Input
+                        id="location"
+                        label='Location'
+                        disabled={isLoading}
+                        register={register}
+                        errors={errors}
+                        required
+                    />
+                    <Input
+                        id="occupation"
+                        label='Occupation'
+                        disabled={isLoading}
+                        register={register}
+                        errors={errors}
+                        required
+                    />
+                    <div className="rounded-md border-2 border-neutral-400 p-2">
+                        <ImageUpload onChange={(pictureUrl) => setCustomValue("pictureUrl", pictureUrl)}/>
+                    </div>
+                </>
+            }
+
             <Input
                 id="email"
                 label='Email'
@@ -145,7 +161,23 @@ const Form = () => {
                     onClick={handleSubmit(onSubmit)}
                 />
             </div>
-
+            <span
+                onClick={() => {
+                    setPageType(isLogin ? "register" : "login");
+                    reset();
+                }}
+                className="
+                    underline
+                    cursor-pointer
+                    text-primary-main
+                    hover:text-primary-light
+                "
+            >
+                {isLogin
+                    ? "Don't have an account? Sign Up here."
+                    : "Already have an account? Login here."
+                }
+            </span>
         </div>
     );
 };

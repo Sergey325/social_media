@@ -20,20 +20,21 @@ type Props = {
     childStyle?: string
     hrAfter?: Number[]
     overflowHidden?: boolean
+    selection?: boolean
 };
 
-const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, hrAfter, overflowHidden = false}: Props) => {
+const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, hrAfter, overflowHidden = false, selection = true}: Props) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
     const handleSelectOption = useCallback((option: Option) => {
-        if(selectedOption?.value === option.value && option.label){
+        if(selectedOption?.value === option.value){
             return
         }
-        setSelectedOption(option);
+        if(selection) setSelectedOption(option);
         option.onSelected();
         console.log("h")
-    }, [selectedOption?.value]);
+    }, [selectedOption?.value, selection]);
 
     useEffect(() => {
         setIsOpen(false);

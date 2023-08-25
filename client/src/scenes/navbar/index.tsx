@@ -77,6 +77,7 @@ const Navbar = () => {
                     childStyle={"flex items-center justify-center bg-neutral-light hover:bg-neutral-medium text-sm drop-shadow-xl"}
                     hrAfter={windowWidth < 640 ? [5] : [1]}
                     options={options}
+                    selection={false}
                 />
             </div>
         </div>
