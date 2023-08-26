@@ -7,6 +7,7 @@ import {setLogin} from "../../state";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ImageUpload from "../../components/ImageUpload";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Form = () => {
@@ -47,38 +48,48 @@ const Form = () => {
     }
 
 
-    const registerUser = async (formData: FieldValues) => {
-        try {
-            const response = await axios.post('http://localhost:3001/auth/register', formData);
-            const savedUser = response.data;
-            reset();
-            if (savedUser) {
-                setPageType("login");
-            }
-        } catch (error) {
-            console.error("Error while registering: ", error);
-        }
+    const registerUser = (formData: FieldValues) => {
+        setIsLoading(true)
+        axios.post('http://localhost:3001/auth/register', formData)
+            .then((res) => {
+                const savedUser = res.data
+                if (savedUser) {
+                    setPageType("login");
+                }
+                toast.success("Account created!")
+            })
+            .catch(error => {
+                toast.error(error.response?.data.message)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
     };
 
-    const loginUser = async (formData: FieldValues) => {
-        try {
-            const response = await axios.post("http://localhost:3001/auth/login", formData)
-            const loggedIn = response.data
-            reset()
+    const loginUser = (formData: FieldValues) => {
+        setIsLoading(true)
+        axios.post("http://localhost:3001/auth/login", formData)
+            .then(res => {
+                const loggedIn = res.data
+                reset()
 
-            if (loggedIn) {
-                dispatch(
-                    setLogin({
-                        user: loggedIn.user,
-                        token: loggedIn.token,
-                    })
-                );
-                navigate("/home");
-            }
-        } catch (error) {
-            console.error("Error while logging in:", error);
-        }
-
+                if (loggedIn) {
+                    toast.success("Logged in")
+                    dispatch(
+                        setLogin({
+                            user: loggedIn.user,
+                            token: loggedIn.token,
+                        })
+                    );
+                    navigate("/home");
+                }
+            })
+            .catch(error => {
+                toast.error(error.response?.data.message)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
     };
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {

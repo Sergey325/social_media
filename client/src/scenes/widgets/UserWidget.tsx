@@ -52,9 +52,9 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
 
     return (
         <WidgetWrapper>
-            <div className="flex justify-between items-center pb-4">
+            <div className="flex justify-between items-center pb-4" onClick={() => navigate(`/profile/${userId}`)}>
                 <div className="flex items-center gap-3">
-                    <UserImage imageUrl={pictureUrl}/>
+                    <UserImage imageUrl={pictureUrl} sizeInPx={60}/>
                     <div className="flex flex-col">
                         <span
                             className="

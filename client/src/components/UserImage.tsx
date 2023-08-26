@@ -3,12 +3,14 @@ type Props = {
     sizeInPx?: number
 };
 
+
 const UserImage = ({imageUrl, sizeInPx = 60}: Props) => {
     return (
-        <div className={`h-[60px] w-[60px]`}>
+        <div style={{width: sizeInPx, height: sizeInPx}}>
             <img
-                src={imageUrl} 
-                className={`h-[${sizeInPx}px] w-[${sizeInPx}px] rounded-full object-cover`}
+                src={imageUrl ? imageUrl : "images/placeholder.jpg"}
+                className="rounded-full object-cover"
+                style={{width: sizeInPx, height: sizeInPx}}
                 alt="userImage"
             />
         </div>

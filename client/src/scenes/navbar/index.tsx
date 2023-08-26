@@ -31,7 +31,7 @@ const Navbar = () => {
     const options = useMemo(() => {
         let options
         options = [
-            { value: "Serhii Sabada", label: "Serhii Sabada", onSelected: function() { }},
+            { value: fullName, label: fullName, onSelected: function() { }},
             { value: "Logout", label: "Logout", onSelected: function() { dispatch(setLogout()) }},
         ]
 
@@ -45,7 +45,7 @@ const Navbar = () => {
         }
 
         return options
-    }, [windowWidth, dispatch])
+    }, [fullName, windowWidth, dispatch])
 
     return (
         <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition">
@@ -63,7 +63,7 @@ const Navbar = () => {
                     <AiFillQuestionCircle className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition cursor-pointer" size={32}/>
                 </div>
                 <DropDown
-                    placeholder="Serhii Sabada"
+                    placeholder={fullName}
                     mainStyles="
                         hover:shadow-none
                         min-w-[140px]

@@ -5,6 +5,7 @@ import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
 import {useSelector} from "react-redux"
 import {RootState} from "./index";
+import ToasterProvider from "./providers/ToasterProvider";
 
 function App() {
     const mode = useSelector((state: RootState) => state.mode)
@@ -31,6 +32,7 @@ function App() {
                         element={isAuth ? <ProfilePage/> : <Navigate to={"/"}/>}/>
                 </Routes>
             </BrowserRouter>
+            <ToasterProvider/>
         </div>
     );
 }
