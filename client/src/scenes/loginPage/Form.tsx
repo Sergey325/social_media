@@ -182,6 +182,7 @@ const Form = () => {
                     cursor-pointer
                     text-primary-main
                     hover:text-primary-light
+                    max-w-max
                 "
             >
                 {isLogin

@@ -18,7 +18,7 @@ const Button = ({label, onClick, disabled, outline, small, icon: Icon, gradient}
             className={`
                 relative
                 disabled:opacity-70 disabled:cursor-not-allowed
-                rounded-md
+                rounded-3xl
                 transition-all
                 duration-300
                 w-full
@@ -28,9 +28,9 @@ const Button = ({label, onClick, disabled, outline, small, icon: Icon, gradient}
                 ${outline ? "text-gray-300" : "text-bkg-alt"}
                 ${gradient && "bg-gradient-to-br from-indigo-500 to-purple-600"}
                 ${gradient && ""}
-                ${small ? "py-1" : "py-4"}
+                ${small ? "py-1" : "py-2"}
                 ${small ? "text-sm" : "text-md"}
-                ${small ? "font-light" : "font-semibold"}
+                ${small ? "font-light" : "font-medium"}
                 select-none
             `}
         >

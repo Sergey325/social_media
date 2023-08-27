@@ -16,10 +16,10 @@ const HomePage = () => {
                     <UserWidget userId={_id} pictureUrl={pictureUrl}/>
                 </div>
                 <div className="lg:basis-5/12 mt-8 lg:mt-0">
-
+                    <MyPostWidget pictureUrl={pictureUrl}/>
                 </div>
                 <div className="hidden lg:block basis-1/4">
-                    <MyPostWidget pictureUrl={pictureUrl}/>
+
                 </div>
             </div>
         </div>

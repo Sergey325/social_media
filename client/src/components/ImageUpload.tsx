@@ -7,9 +7,10 @@ declare global {
 
 type Props = {
     onChange: (e: string) => void
+    rounded?: boolean
 }
 
-const ImageUpload = ({onChange}: Props) => {
+const ImageUpload = ({onChange, rounded = true}: Props) => {
     const [uploadedImageUrl, setUploadedImageUrl] = useState("")
 
     const uploadWidget = window.cloudinary.createUploadWidget(
@@ -48,22 +49,21 @@ const ImageUpload = ({onChange}: Props) => {
         >
             {
                 uploadedImageUrl
-                ?
-                <div className="flex justify-center items-center w-[100px] h-[100px] rounded-full">
-                    <img
-                        src={uploadedImageUrl}
-                        className="object-cover w-full h-full rounded-full"
-                        alt="uploadedImage"
-                    />
-                </div>
-                :
-                <>
-                    <TbPhotoPlus size={40}/>
-                    <div className="text-base font-light">
-                        Click to upload your image
+                    ?
+                    <div className="flex justify-center items-center w-[100px] h-[100px] rounded-full">
+                        <img
+                            src={uploadedImageUrl}
+                            className={`object-cover w-full h-full ${rounded && "rounded-full"}`}
+                            alt="uploadedImage"
+                        />
                     </div>
-
-                </>
+                    :
+                    <>
+                        <TbPhotoPlus size={40}/>
+                        <div className="text-base font-light">
+                            Click to upload your image
+                        </div>
+                    </>
             }
         </div>
     )
