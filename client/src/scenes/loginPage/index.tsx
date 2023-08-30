@@ -6,7 +6,7 @@ type Props = {
 
 const LoginPage = (props: Props) => {
     return (
-        <>
+        <div className="h-[100%]">
             <div className="w-full py-4 px-[6%] text-center bg-bkg-alt">
                 <h1 className="font-bold text-xl md:text-2xl lg:text-3xl text-primary-main select-none transition">
                     Socialmedia
@@ -16,7 +16,7 @@ const LoginPage = (props: Props) => {
                 <Form/>
             </div>
 
-        </>
+        </div>
     );
 };
 

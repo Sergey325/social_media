@@ -26,7 +26,7 @@ export const register = async (req, res) => {
             email,
             password: hashedPassword,
             pictureUrl,
-            friends,
+            friends: [],
             location,
             occupation,
             viewedProfile: Math.floor(Math.random() * 10000),

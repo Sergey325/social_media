@@ -20,7 +20,7 @@ function App() {
     }, [mode])
 
     return (
-        <div className="h-[100%] bg-bkg-default transition">
+        <div className="min-h-full bg-bkg-default transition">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<LoginPage/>}/>

@@ -4,6 +4,7 @@ import {RootState} from "../../index";
 import {User} from "../../../types";
 import UserWidget from "../widgets/UserWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
+import PostsWidget from "../widgets/PostsWidgets";
 
 const HomePage = () => {
     const {_id, pictureUrl} = useSelector((state: RootState) => state.user as User);
@@ -17,6 +18,7 @@ const HomePage = () => {
                 </div>
                 <div className="lg:basis-5/12 mt-8 lg:mt-0">
                     <MyPostWidget pictureUrl={pictureUrl}/>
+                    <PostsWidget userId={_id} />
                 </div>
                 <div className="hidden lg:block basis-1/4">
 

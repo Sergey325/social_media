@@ -48,8 +48,10 @@ const MyPostWidget = ({pictureUrl}: Props) => {
 
     return (
         <WidgetWrapper>
-            <div className="flex items-center justify-between gap-6">
-                <UserImage imageUrl={pictureUrl}/>
+            <div className="flex items-center gap-6">
+                <div>
+                    <UserImage imageUrl={pictureUrl}/>
+                </div>
                 <input
                     type="text"
                     value={post}
