@@ -15,9 +15,6 @@ export const getUserFriends = async (req, res) => {
     try {
         const { id } = req.params
         const user = await User.findById(id)
-        if(user.friends === null) {
-            user.friends = []
-        }
 
         res.status(200).json(user.friends)
     } catch (e) {
@@ -28,23 +25,16 @@ export const getUserFriends = async (req, res) => {
 // UPDATE
 export const addRemoveFriend = async (req, res) => {
     try {
-        const { userId, friendId} = req.params
+        const { id: userId, friendId} = req.params
         const user = await User.findById(userId)
         const friend = await User.findById(friendId)
 
-        if(user.friends === null) {
-            user.friends = []
-        }
-        if(friend.friends === null) {
-            friend.friends = []
-        }
-
-        if (user.friends.includes(friend)) {
-            user.friends.filter( id => id !== friendId)
-            friend.friends.filter( id => id !== userId)
+        if (user.friends.includes(friendId)) {
+            user.friends = user.friends.filter( id => id !== friendId)
+            friend.friends = friend.friends.filter( id => id !== userId)
         } else {
-            user.friends.push(friend)
-            friend.friends.push(user)
+            user.friends.push(friendId)
+            friend.friends.push(userId)
         }
         await user.save()
         await friend.save()

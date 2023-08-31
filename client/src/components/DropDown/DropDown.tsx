@@ -33,7 +33,6 @@ const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, 
         }
         if(selection) setSelectedOption(option);
         option.onSelected();
-        console.log("h")
     }, [selectedOption?.value, selection]);
 
     useEffect(() => {

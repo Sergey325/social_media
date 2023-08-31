@@ -19,8 +19,7 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
     const _id = useSelector((state: RootState) => state.user?._id);
     const token = useSelector((state: RootState) => state.token);
     const friends = useSelector((state: RootState) => state.user?.friends);
-    const isFriend = friends?.some((friend) => friend._id === friendId);
-
+    const isFriend = friends?.some((id) => id === friendId);
     const patchFriend = async () => {
         try {
             const response = await axios.patch(
@@ -54,7 +53,7 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
                     <span className="text-neutral-main hover:text-primary-light cursor-pointer">
                         {name}
                     </span>
-                    <span className="text-neutral-medium text-xs">
+                    <span className="text-neutral-medium ">
                         {subtitle}
                     </span>
                 </div>
@@ -65,15 +64,13 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
                     {
                         isFriend
                             ?
-                            <MdOutlinePersonRemoveAlt1 size={16}/>
+                            <MdOutlinePersonRemoveAlt1 size={18}/>
                             :
-                            <MdPersonAddAlt size={16}/>
+                            <MdPersonAddAlt size={18}/>
 
                     }
                 </div>
             }
-
-
         </div>
     );
 };

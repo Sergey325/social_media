@@ -5,7 +5,7 @@ export type User = {
     email: string,
     password: string,
     pictureUrl: string,
-    friends: User[],
+    friends: string[],
     location: string,
     occupation: string,
     viewedProfile: number,

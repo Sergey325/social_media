@@ -13,6 +13,7 @@ type Props = {
 const PostsWidget = ({ userId, isProfile = false }: Props) => {
     const dispatch = useDispatch()
     const posts = useSelector((state: RootState) => state.posts)
+    const reversedPosts = [...posts].reverse();
     const token = useSelector((state: RootState) => state.token)
 
     const getPosts = async () => {
@@ -47,7 +48,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
 
     return (
         <>
-            {posts.map(
+            {reversedPosts.map(
                 ({
                      _id,
                      userId,
@@ -60,18 +61,20 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
                      likes,
                      comments,
                 }) => (
-                    <PostWidget
-                        key={_id}
-                        postId={_id}
-                        postUserId={userId}
-                        name={`${firstName} ${lastName}`}
-                        description={description}
-                        location={location}
-                        pictureUrl={pictureUrl}
-                        userPictureUrl={userPictureUrl}
-                        likes={likes}
-                        comments={comments}
-                    />
+                    <div key={_id} className="mt-8">
+                        <PostWidget
+                            postId={_id}
+                            postUserId={userId}
+                            name={`${firstName} ${lastName}`}
+                            description={description}
+                            location={location}
+                            pictureUrl={pictureUrl}
+                            userPictureUrl={userPictureUrl}
+                            likes={likes}
+                            comments={comments}
+                        />
+                    </div>
+
                 )
             )}
         </>
