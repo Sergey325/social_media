@@ -5,7 +5,7 @@ export type User = {
     email: string,
     password: string,
     pictureUrl: string,
-    friends: string[],
+    friends: FriendType[],
     location: string,
     occupation: string,
     viewedProfile: number,
@@ -23,4 +23,13 @@ export type Post = {
     userPictureUrl: string,
     likes: Record<string, boolean>;
     comments: string[]
+}
+
+export type FriendType = {
+    _id: string,
+    firstName: string,
+    lastName: string,
+    occupation: string,
+    location: string,
+    pictureUrl: string
 }

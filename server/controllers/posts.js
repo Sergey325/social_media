@@ -41,7 +41,7 @@ export const getFeedPosts = async (req, res) => {
 export const getUserPosts = async (req, res) => {
     try {
         const { userId } = req.params
-        const post = await Post.find(userId)
+        const post = await Post.find({userId: userId})
         res.status(201).json(post)
     } catch (e) {
         res.status(404).json({ message: e.message})

@@ -1,16 +1,18 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {Post, User} from "../../types";
+import {FriendType, Post, User} from "../../types";
 
 interface mainState {
     mode: string,
-    user: User | null
+    currentUser: User | null
+    visitedUser: User | null
     token: string | null
     posts: Post[]
 }
 
 const initialState: mainState = {
     mode: "light",
-    user: null,
+    currentUser: null,
+    visitedUser: null,
     token: null,
     posts: [],
 }
@@ -23,16 +25,18 @@ export const authSlice = createSlice({
             state.mode = state.mode === "light" ? "dark" : "light";
         },
         setLogin: (state, action: PayloadAction<{ user: User; token: string }>) => {
-            state.user = action.payload.user;
+            console.log(action.payload.user)
+            state.currentUser = action.payload.user;
             state.token = action.payload.token;
         },
         setLogout: (state) => {
-            state.user = null;
+            state.currentUser = null;
             state.token = null;
         },
-        setFriends: (state, action: PayloadAction<{ friends: string[] }>) => {
-            if(state.user) {
-                state.user.friends = action.payload.friends
+        setFriends: (state, action: PayloadAction<{ friends: FriendType[] }>) => {
+            if(state.currentUser) {
+                state.currentUser.friends = action.payload.friends
+                console.log("friends changed")
             } else {
                 console.error("user friends non-existent")
             }
@@ -47,8 +51,11 @@ export const authSlice = createSlice({
             })
             state.posts = updatedPosts
         },
+        setVisitedUser: (state, action: PayloadAction<{ user: User;}>) => {
+            state.visitedUser = action.payload.user;
+        },
     }
 })
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost} = authSlice.actions;
+export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost, setVisitedUser} = authSlice.actions;
 export default authSlice.reducer;

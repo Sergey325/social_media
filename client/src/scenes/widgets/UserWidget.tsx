@@ -17,9 +17,12 @@ type Props = {
 }
 
 const UserWidget = ({userId, pictureUrl}: Props) => {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<User>()
+    const currentUser = useSelector((state: RootState) => state.currentUser) as User
+    const visitedUser = useSelector((state: RootState) => state.visitedUser) as User
     const navigate = useNavigate()
     const token =  useSelector((state: RootState) => state.token);
+
 
     useEffect(() => {
         const getUser = async () => {
@@ -32,9 +35,9 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
                 console.error("Error fetching user:", error);
             }
         };
-
         getUser();
-    }, [userId, token]);
+    }, [userId, token, visitedUser]);
+
 
     if(!user){
         return null
@@ -47,16 +50,16 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
         occupation,
         viewedProfile,
         impressions,
-        friends,
     } = user;
 
     return (
         <WidgetWrapper>
-            <div className="flex justify-between items-center pb-4" onClick={() => navigate(`/profile/${userId}`)}>
+            <div className="flex justify-between items-center pb-4" >
                 <div className="flex items-center gap-3">
                     <UserImage imageUrl={pictureUrl} sizeInPx={60}/>
                     <div className="flex flex-col">
                         <span
+                            onClick={() => navigate(`/profile/${userId}`)}
                             className="
                                 text-lg
                                 text-neutral-dark hover:text-primary-light
@@ -66,7 +69,7 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
                             {firstName} {lastName}
                         </span>
                         <span className="text-neutral-medium">
-                            {friends?.length} friends
+                            {userId === currentUser._id ? currentUser.friends.length : visitedUser.friends.length} friends
                         </span>
                     </div>
                 </div>

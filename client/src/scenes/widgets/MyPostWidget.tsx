@@ -20,7 +20,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
     const [isAttachment, setIsAttachment] = useState(false)
     const [imageUrl, setImageUrl] = useState("")
     const [post, setPost] = useState("")
-    const { _id } = useSelector((state: RootState) => state.user as User)
+    const { _id } = useSelector((state: RootState) => state.currentUser as User)
     const token = useSelector((state: RootState) => state.token)
 
     const handlePost = () => {

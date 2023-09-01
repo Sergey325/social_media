@@ -7,7 +7,7 @@ import {setLogin} from "../../state";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ImageUpload from "../../components/ImageUpload";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 
 const Form = () => {
@@ -93,11 +93,9 @@ const Form = () => {
     };
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        //
-        console.log(data)
         setIsLoading(true)
-        if (isLogin) await loginUser(data)
-        if (isRegister) await registerUser(data)
+        if (isLogin) loginUser(data)
+        if (isRegister) registerUser(data)
         setIsLoading(false)
     };
 

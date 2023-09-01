@@ -5,21 +5,22 @@ import UserImage from "./UserImage";
 import {setFriends} from "../state";
 import axios from "axios";
 import {MdOutlinePersonRemoveAlt1, MdPersonAddAlt} from "react-icons/md";
-
+import {User} from "../../types";
 type Props = {
     friendId: string,
     name: string,
     subtitle: string,
-    userPictureUrl: string
+    userPictureUrl: string,
 };
 
 const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const _id = useSelector((state: RootState) => state.user?._id);
+    const _id = useSelector((state: RootState) => state.currentUser?._id);
     const token = useSelector((state: RootState) => state.token);
-    const friends = useSelector((state: RootState) => state.user?.friends);
-    const isFriend = friends?.some((id) => id === friendId);
+    const friends = useSelector((state: RootState) => state.currentUser?.friends) as User[];
+    const isFriend = friends.some(friend => friend._id === friendId);
+
     const patchFriend = async () => {
         try {
             const response = await axios.patch(
@@ -38,6 +39,7 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
             console.error("Error patching friend:", error);
         }
     };
+
 
     return (
         <div className="flex justify-between items-center w-full text-sm">
@@ -67,7 +69,6 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
                             <MdOutlinePersonRemoveAlt1 size={18}/>
                             :
                             <MdPersonAddAlt size={18}/>
-
                     }
                 </div>
             }

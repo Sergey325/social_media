@@ -13,7 +13,7 @@ const Navbar = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector((state: RootState) => state.user);
+    const user = useSelector((state: RootState) => state.currentUser);
     const fullName = `${user?.firstName} ${user?.lastName}`;
 
     useEffect(() => {

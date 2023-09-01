@@ -5,7 +5,7 @@ import {setPost} from "../../state";
 import axios from "axios";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import Friend from "../../components/Friend";
-import {AiFillHeart, AiOutlineHeart, AiOutlineShareAlt} from "react-icons/ai";
+import {AiOutlineShareAlt} from "react-icons/ai";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {BsChatLeft} from "react-icons/bs";
 
@@ -35,7 +35,7 @@ const PostWidget = ({
     const [isComments, setIsComments] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector((state: RootState) => state.token);
-    const loggedInUserId = useSelector((state: RootState) => state.user?._id) as string;
+    const loggedInUserId = useSelector((state: RootState) => state.currentUser?._id) as string;
     const isLiked = Boolean(likes[loggedInUserId]);
     const likeCount = Object.keys(likes).length;
 

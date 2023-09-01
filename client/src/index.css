@@ -7,7 +7,7 @@
     :root {
         --color-primary-dark: 0 107 125;
         --color-primary-main: 0 213 250;
-        --color-primary-light: 230 251 255;
+        --color-primary-light: 145 227 243;
 
         --color-neutral-dark: 51 51 51;
         --color-neutral-main: 102 102 102;
@@ -21,7 +21,7 @@
     :root[data-theme="dark"]{
         --color-primary-dark: 153 238 253;
         --color-primary-main: 0 213 250;
-        --color-primary-light: 0 53 63;
+        --color-primary-light: 8 61 71;
 
         --color-neutral-dark: 224 224 224;
         --color-neutral-main: 194 194 194;
