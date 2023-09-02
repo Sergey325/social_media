@@ -31,8 +31,12 @@ export const createPost = async (req, res) => {
 // READ
 export const getFeedPosts = async (req, res) => {
     try {
-        const post = await Post.find()
-        res.status(201).json(post)
+        const posts = await Post.find().lean()
+        const safePosts = posts.map((post) => ({
+            ...post,
+            createdAt: post.createdAt.toISOString(),
+        }));
+        res.status(201).json(safePosts)
     } catch (e) {
         res.status(404).json({ message: e.message})
     }
@@ -66,6 +70,35 @@ export const likePost = async (req, res) => {
             id,
             { likes: post.likes },
             { new: true }
+        )
+
+        res.status(201).json(updatedPost)
+    } catch (e) {
+        res.status(404).json({ message: e.message})
+    }
+}
+
+export const commentPost = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { userId, comment } = req.body
+        const user = await User.findById(userId)
+        const post = await Post.findById(id)
+
+        const newComment = {
+            userId: userId,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            text: comment,
+            userPictureUrl: user.pictureUrl,
+            date: (new Date()).toISOString()
+        }
+
+        const updatedComments = [...post.comments, newComment];
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { comments: updatedComments},
         )
 
         res.status(201).json(updatedPost)

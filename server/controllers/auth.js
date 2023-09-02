@@ -14,7 +14,6 @@ export const register = async (req, res) => {
             location,
             occupation,
         } = req.body
-        console.log("params")
         const salt = await bcrypt.genSalt()
         const hashedPassword = await bcrypt.hash(password, salt)
 

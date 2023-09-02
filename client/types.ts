@@ -22,7 +22,7 @@ export type Post = {
     pictureUrl: string,
     userPictureUrl: string,
     likes: Record<string, boolean>;
-    comments: string[]
+    comments: Comment[]
 }
 
 export type FriendType = {
@@ -32,4 +32,13 @@ export type FriendType = {
     occupation: string,
     location: string,
     pictureUrl: string
+}
+
+export type Comment = {
+    userId: string,
+    firstName: string,
+    lastName: string,
+    text: string,
+    userPictureUrl: string,
+    date: Date,
 }

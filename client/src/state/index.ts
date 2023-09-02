@@ -25,7 +25,6 @@ export const authSlice = createSlice({
             state.mode = state.mode === "light" ? "dark" : "light";
         },
         setLogin: (state, action: PayloadAction<{ user: User; token: string }>) => {
-            console.log(action.payload.user)
             state.currentUser = action.payload.user;
             state.token = action.payload.token;
         },
@@ -36,7 +35,6 @@ export const authSlice = createSlice({
         setFriends: (state, action: PayloadAction<{ friends: FriendType[] }>) => {
             if(state.currentUser) {
                 state.currentUser.friends = action.payload.friends
-                console.log("friends changed")
             } else {
                 console.error("user friends non-existent")
             }

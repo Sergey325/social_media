@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    commentPost,
     createPost,
     getFeedPosts,
     getUserPosts,
@@ -15,6 +16,7 @@ router.get("/:userId/posts", verifiedToken, getUserPosts)
 
 // Update
 router.patch("/:id/like", verifiedToken, likePost)
+router.patch("/:id/comment", verifiedToken, commentPost)
 
 // Create
 router.post("/", verifiedToken, createPost)

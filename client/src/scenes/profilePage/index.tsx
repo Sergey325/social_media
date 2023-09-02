@@ -34,7 +34,7 @@ const ProfilePage = () => {
         getUser();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    if (!userId) return null;
+    if (!userId || !visitedUser) return null;
 
     return (
         <div>
