@@ -13,7 +13,6 @@ type Props = {
 const PostsWidget = ({ userId, isProfile = false }: Props) => {
     const dispatch = useDispatch()
     const posts = useSelector((state: RootState) => state.posts)
-    const reversedPosts = [...posts].reverse();
     const token = useSelector((state: RootState) => state.token)
 
     const getPosts = async () => {
@@ -21,7 +20,8 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
             const response = await axios.get('http://localhost:3001/posts', {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            dispatch(setPosts({ posts: response.data }));
+            const reversedPosts = [...response.data].reverse();
+            dispatch(setPosts({ posts: reversedPosts }));
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
@@ -44,11 +44,11 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
         } else {
             getPosts();
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [posts]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
-            {reversedPosts.map(
+            {posts.map(
                 ({
                      _id,
                      userId,

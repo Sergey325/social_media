@@ -12,11 +12,10 @@ type Props = {
 
 const ImageUpload = ({onChange, rounded = true}: Props) => {
     const [uploadedImageUrl, setUploadedImageUrl] = useState("")
-
     const uploadWidget = window.cloudinary.createUploadWidget(
         {
-            cloudName: "dby8qzoac",
-            uploadPreset: "react_unsigned",
+            cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
             maxFiles: 1,
             resourceType: "image",
             clientAllowedFormats: ["img", "png", "jpg", "bmp"],
