@@ -34,6 +34,7 @@ const Input = ({id, label, type = "text", disabled, required, register, errors}:
                     outline-none
                     text-neutral-dark
                     transition
+                    duration-300
                     disabled:opacity-70
                     disabled:cursor-not-allowed
                     placeholder-neutral-main

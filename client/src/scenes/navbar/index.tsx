@@ -48,7 +48,7 @@ const Navbar = () => {
     }, [fullName, windowWidth, dispatch])
 
     return (
-        <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition">
+        <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition duration-300">
             <h1
                 className="font-bold text-xl md:text-2xl lg:text-3xl cursor-pointer text-primary-main hover:text-primary-light select-none transition"
                 onClick={() => navigate("/home")}
@@ -58,9 +58,9 @@ const Navbar = () => {
             <div className="flex justify-between text-sm items-center gap-4">
                 <div className="hidden sm:flex items-center text-neutral-dark gap-3">
                     <ThemeToggle />
-                    <BiSolidMessageDetail className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition cursor-pointer" size={32}/>
-                    <IoMdNotifications className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition cursor-pointer" size={32}/>
-                    <AiFillQuestionCircle className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition cursor-pointer" size={32}/>
+                    <BiSolidMessageDetail className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer" size={32}/>
+                    <IoMdNotifications className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer" size={32}/>
+                    <AiFillQuestionCircle className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer" size={32}/>
                 </div>
                 <DropDown
                     placeholder={fullName}

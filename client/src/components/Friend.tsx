@@ -62,7 +62,7 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
             </div>
             {
                 _id !== friendId &&
-                <div className="bg-primary-light p-2.5 text-primary-dark rounded-full cursor-pointer" onClick={() => patchFriend()}>
+                <div className="bg-primary-light p-2.5 text-primary-dark rounded-full cursor-pointer transition duration-300" onClick={() => patchFriend()}>
                     {
                         isFriend
                             ?

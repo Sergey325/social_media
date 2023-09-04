@@ -39,26 +39,7 @@ const CreateComment = ({postId}: Props) => {
         }).finally(() => {
             setIsLoading(false)
         })
-
-        // try {
-        //     const response = await axios.patch(`http://localhost:3001/posts/${postId}/comment`, {
-        //         userId: _id,
-        //         comment: comment
-        //     }, {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`,
-        //             "Content-Type": "application/json"
-        //         }
-        //     });
-        //     const updatedPost = response.data;
-        //     dispatch(setPost({post: updatedPost}));
-        //
-        //     setComment("")
-        // } catch (error) {
-        //     console.error("Error creating comment:", error);
-        // }
     };
-
 
     return (
         <div className="flex items-center text-sm gap-2">
