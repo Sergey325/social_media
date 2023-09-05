@@ -38,7 +38,7 @@ const Navbar = () => {
         if(windowWidth < 640){
             options = [
                 { value: "Mode", label: "", item: <ThemeToggle/>, onSelected: function() { dispatch(setMode()) }},
-                { value: "Message", label: "", icon: BiSolidMessageDetail, onSelected: function() { }},
+                { value: "Message", label: "", icon: BiSolidMessageDetail, onSelected: function() { navigate("/chat") }},
                 { value: "Notifications", label: "", icon: IoMdNotifications, onSelected: function() { }},
                 { value: "Support", label: "", icon: AiFillQuestionCircle, onSelected: function() { }},...options,
             ]
@@ -58,7 +58,11 @@ const Navbar = () => {
             <div className="flex justify-between text-sm items-center gap-4">
                 <div className="hidden sm:flex items-center text-neutral-dark gap-3">
                     <ThemeToggle />
-                    <BiSolidMessageDetail className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer" size={32}/>
+                    <BiSolidMessageDetail
+                        className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer"
+                        size={32}
+                        onClick={() => navigate("/chat")}
+                    />
                     <IoMdNotifications className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer" size={32}/>
                     <AiFillQuestionCircle className="hover:bg-neutral-light p-1.5 lg:p-1 rounded-full transition duration-300 cursor-pointer" size={32}/>
                 </div>

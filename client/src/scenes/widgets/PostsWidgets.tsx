@@ -1,7 +1,7 @@
 import {RootState} from "../../index";
 import {useDispatch, useSelector} from "react-redux";
 import {setPosts} from "../../state";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import axios from "axios";
 import PostWidget from "./PostWidget";
 
@@ -15,7 +15,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
     const posts = useSelector((state: RootState) => state.posts)
     const token = useSelector((state: RootState) => state.token)
 
-    const getPosts = async () => {
+    const getPosts = useCallback(async () => {
         try {
             const response = await axios.get('http://localhost:3001/posts', {
                 headers: { Authorization: `Bearer ${token}` },
@@ -25,9 +25,9 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
-    };
+    }, [dispatch, token]) 
 
-    const getUserPosts = async () => {
+    const getUserPosts = useCallback(async () => {
         try {
             const response = await axios.get(`http://localhost:3001/posts/${userId}/posts`, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -36,7 +36,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
         } catch (error) {
             console.error('Error fetching user posts:', error);
         }
-    };
+    }, [dispatch, token, userId]) 
 
     useEffect(() => {
         if (isProfile) {
@@ -44,7 +44,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
         } else {
             getPosts();
         }
-    }, [posts]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [getPosts, getUserPosts, isProfile]);
 
     return (
         <>

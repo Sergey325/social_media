@@ -7,6 +7,7 @@ import helmet from "helmet"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
+import chatRoutes from "./routes/chats.js"
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
@@ -25,6 +26,7 @@ app.use(cors())
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
 app.use("/posts", postRoutes)
+app.use("/chats", chatRoutes)
 
 // MONGOOSE SETUP
 const PORT = process.env.PORT || 5001;

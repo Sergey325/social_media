@@ -6,6 +6,7 @@ import ProfilePage from "scenes/profilePage";
 import {useSelector} from "react-redux"
 import {RootState} from "./index";
 import ToasterProvider from "./providers/ToasterProvider";
+import ChatPage from "./scenes/ChatPage";
 
 function App() {
     const mode = useSelector((state: RootState) => state.mode)
@@ -26,10 +27,16 @@ function App() {
                     <Route path="/" element={<LoginPage/>}/>
                     <Route
                         path="/home"
-                        element={isAuth ? <HomePage/> : <Navigate to={"/"}/>}/>
+                        element={isAuth ? <HomePage/> : <Navigate to={"/"}/>}
+                    />
                     <Route
                         path="/profile/:userId"
-                        element={isAuth ? <ProfilePage/> : <Navigate to={"/"}/>}/>
+                        element={isAuth ? <ProfilePage/> : <Navigate to={"/"}/>}
+                    />
+                    <Route
+                        path="/chat"
+                        element={isAuth ? <ChatPage/> : <Navigate to={"/"}/>}
+                    />
                 </Routes>
             </BrowserRouter>
             <ToasterProvider/>

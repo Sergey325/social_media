@@ -99,6 +99,7 @@ export const commentPost = async (req, res) => {
         const updatedPost = await Post.findByIdAndUpdate(
             id,
             { comments: updatedComments},
+            { new: true}
         )
 
         res.status(201).json(updatedPost)
