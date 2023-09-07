@@ -42,3 +42,16 @@ export type Comment = {
     userPictureUrl: string,
     date: Date,
 }
+
+export type Message = {
+    sender: User
+    content: string
+    unread: Boolean
+    createdAt: Date
+}
+
+export type Chat = {
+    _id: string,
+    participants: User[],
+    latestMessage: Message,
+}

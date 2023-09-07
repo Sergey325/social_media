@@ -10,6 +10,7 @@ import FriendListWidget from "../widgets/FriendListWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidgets";
 import {setVisitedUser} from "../../state";
+import toast from "react-hot-toast";
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const ProfilePage = () => {
             const data = response.data;
             dispatch(setVisitedUser({ user: data }));
         } catch (error) {
-            console.error("Error fetching user:", error);
+            toast.error(`Error fetching user: ${error}`)
         }
     }, [dispatch, token, userId]);
         

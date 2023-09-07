@@ -20,7 +20,6 @@ export const createPost = async (req, res) => {
         })
         await newPost.save()
 
-        // returning all posts
         const post = await Post.find()
         res.status(201).json(post)
     } catch (e) {

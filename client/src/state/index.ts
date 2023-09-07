@@ -1,11 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {FriendType, Post, User} from "../../types";
+import {Chat, FriendType, Post, User} from "../../types";
 
 interface mainState {
     mode: string,
     currentUser: User | null
     visitedUser: User | null
     token: string | null
+    selectedChat: Chat | null
     posts: Post[]
 }
 
@@ -14,6 +15,7 @@ const initialState: mainState = {
     currentUser: null,
     visitedUser: null,
     token: null,
+    selectedChat: null,
     posts: [],
 }
 
