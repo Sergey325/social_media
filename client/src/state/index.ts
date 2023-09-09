@@ -54,8 +54,20 @@ export const authSlice = createSlice({
         setVisitedUser: (state, action: PayloadAction<{ user: User;}>) => {
             state.visitedUser = action.payload.user;
         },
+        setSelectedChat: (state, action: PayloadAction<{ chat: Chat | null }>) => {
+            state.selectedChat = action.payload.chat
+        }
     }
 })
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost, setVisitedUser} = authSlice.actions;
+export const {
+    setMode,
+    setLogin,
+    setLogout,
+    setFriends,
+    setPosts,
+    setPost,
+    setVisitedUser,
+    setSelectedChat,
+} = authSlice.actions;
 export default authSlice.reducer;

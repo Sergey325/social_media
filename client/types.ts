@@ -44,6 +44,7 @@ export type Comment = {
 }
 
 export type Message = {
+    _id: string,
     sender: User
     content: string
     unread: Boolean

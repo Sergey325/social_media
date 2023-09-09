@@ -11,7 +11,8 @@ import chatRoutes from "./routes/chats.js"
 import messageRoutes from "./routes/messages.js"
 import User from "./models/User.js";
 import Post from "./models/Post.js";
-import { users, posts } from "./data/index.js";
+import { users, posts, messages } from "./data/index.js";
+import Message from "./models/Message.js";
 
 // CONFIGURATION
 dotenv.config()
@@ -41,4 +42,5 @@ mongoose.connect(process.env.MONGO_URL, {
     /* ADD DATA ONE TIME */
     // User.insertMany(users);
     // Post.insertMany(posts);
+    //Message.insertMany(messages)
 }).catch( error => console.log(`${error} did not connect`) )

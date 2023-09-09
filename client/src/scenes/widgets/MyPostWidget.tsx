@@ -47,7 +47,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
 
     return (
         <WidgetWrapper>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 text-sm sm:text-base">
                 <div>
                     <UserImage imageUrl={pictureUrl}/>
                 </div>
@@ -64,6 +64,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
                         rounded-3xl
                         bg-neutral-light
                         text-neutral-dark
+                        transition duration-300
                     "
                     placeholder="What's on your mind"
                 />
@@ -88,9 +89,9 @@ const MyPostWidget = ({pictureUrl}: Props) => {
                         onClick={() => setIsAttachment((value) => !value)}
                     >
                         <ImAttachment size={20} />
-                        <span>Attachment</span>
+                        <span className="text-sm sm:text-base">Attachment</span>
                     </div>
-                    <div className="w-[110px] text-sm font-medium">
+                    <div className="w-[110px] text-xs sm:text-sm font-medium">
                         <Button label="POST" onClick={handlePost} />
                     </div>
                 </div>

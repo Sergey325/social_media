@@ -75,7 +75,7 @@ const PostWidget = ({
                 subtitle={location}
                 userPictureUrl={userPictureUrl}
             />
-            <p className="text-neutral-main text-base mt-4">
+            <p className="text-neutral-main text-sm sm:text-base mt-4">
                 {description}
             </p>
             {pictureUrl &&

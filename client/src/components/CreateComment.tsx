@@ -60,6 +60,8 @@ const CreateComment = ({postId}: Props) => {
                         rounded-3xl
                         bg-neutral-light
                         text-neutral-dark
+                        transition
+                        duration-300
                     "
                 placeholder="Leave a comment..."
             />

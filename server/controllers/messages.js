@@ -8,6 +8,7 @@ export const getAllMessages = async (req, res) => {
         const messages = await Message.find({ chat: chatId })
             .populate("sender", "firstName lastName pictureUrl email")
             .populate("chat");
+        messages.map(message => message.createdAt.toISOString())
         res.status(200).json(messages)
     } catch (e) {
         res.status(404).json({ message: e.message })

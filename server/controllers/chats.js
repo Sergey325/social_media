@@ -4,7 +4,7 @@ import Chat from "../models/Chat.js";
 export const getUsersChats = async (req, res) => {
     try {
         const { userId } = req.params
-        const chats = await Chat.find({ participants: userId }).populate('participants', '-password');
+        const chats = await Chat.find({ participants: userId }).populate('participants', '-password').populate("latestMessage");
         res.status(200).json(chats)
     } catch (e) {
         res.status(404).json({ message: e.message })
@@ -19,7 +19,7 @@ export const getOrCreateChat = async (req, res) => {
 
         const existingChat = await Chat.findOne({
             participants: { $all: [userId1, userId2] }
-        }).populate('participants', '-password');
+        }).populate('participants', '-password').populate("latestMessage");
 
         if (existingChat) {
             return res.status(200).json(existingChat);
