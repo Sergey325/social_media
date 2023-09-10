@@ -48,7 +48,7 @@ const Navbar = () => {
     }, [fullName, windowWidth, dispatch])
 
     return (
-        <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition duration-300">
+        <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition duration-300 fixed">
             <h1
                 className="font-bold text-xl md:text-2xl lg:text-3xl cursor-pointer text-primary-main hover:text-primary-light select-none transition"
                 onClick={() => navigate("/home")}

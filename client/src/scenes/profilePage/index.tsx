@@ -40,7 +40,7 @@ const ProfilePage = () => {
     return (
         <div>
             <Navbar/>
-            <div className="lg:flex w-full py-8 px-[6%] justify-center gap-8">
+            <div className="lg:flex w-full mt-16 py-8 px-[6%] justify-center gap-8">
                 <div className="lg:basis-1/4 flex flex-col gap-8 pb-8 lg:pb-0">
                     <UserWidget userId={userId} pictureUrl={visitedUser.pictureUrl}/>
                     <FriendListWidget userId={userId}/>

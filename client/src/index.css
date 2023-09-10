@@ -17,6 +17,7 @@
 
         --color-bkg-default: 246 246 246;
         --color-bkg-alt: 255 255 255;
+
     }
     :root[data-theme="dark"]{
         --color-primary-dark: 153 238 253;
@@ -31,6 +32,18 @@
 
         --color-bkg-default: 10 10 10;
         --color-bkg-alt: 26 26 26;
+    },
+    /* Change Autocomplete styles for text-color in Chrome*/
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        @apply autofill:text-fill-neutral-700 dark:autofill:text-fill-neutral-100 autofill:font-normal
     }
 }
 
@@ -53,11 +66,23 @@ select:-webkit-autofill:focus {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+::-webkit-scrollbar{
+    @apply ml-1 w-1 sm:w-2 h-1;
+}
+
+/*Track*/
+::-webkit-scrollbar-track {
+    @apply ml-1 bg-transparent;
+}
+
+/*Handle*/
+::-webkit-scrollbar-thumb {
+    @apply ml-1 bg-neutral-light rounded-md h-[40%] transition duration-300
+}
+
 html,
 body,
 #root,
 .app {
-    height: 100%;
-    width: 100%;
-    font-family: "Rubik", sans-serif;
+    @apply h-full w-full bg-bkg-alt transition duration-300
 }

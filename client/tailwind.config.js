@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
@@ -22,9 +23,11 @@ module.exports = {
           default: 'rgb(var(--color-bkg-default) / <alpha-value>)',
           alt: 'rgb(var(--color-bkg-alt) / <alpha-value>)',
         },
-      }
+      },
     }
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss-text-fill"),
+  ],
 }
 

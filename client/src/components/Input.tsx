@@ -27,7 +27,7 @@ const Input = ({id, label, type = "text", disabled, required, register, errors}:
                     py-2
                     px-4
                     pt-6
-                    font-light
+                    font-normal
                     bg-transparent
                     border-2
                     rounded-md

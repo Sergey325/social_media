@@ -8,7 +8,7 @@ const ChatPage = () => {
     return (
         <div className="min-h-full flex flex-col flex-grow">
             <Navbar/>
-            <div className="min-h-full grow block lg:flex w-full py-8 px-5 sm:px-20 gap-8 justify-between">
+            <div className="min-h-full mt-16 grow block lg:flex w-full pt-8 pb-6 px-5 sm:px-20 gap-8 justify-between">
                 <div className="lg:w-[33%] flex flex-col gap-8">
                     <ChatListWidget/>
                 </div>
