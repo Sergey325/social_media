@@ -1,5 +1,6 @@
 import Message from "../models/Message.js";
 import User from "../models/User.js";
+import Chat from "../models/Chat.js";
 
 // READ
 export const getAllMessages = async (req, res) => {
@@ -21,26 +22,28 @@ export const sendMessage = async (req, res) => {
 
 
     try {
-        const { content, chatId } = req.body;
+        const { content, chatId, senderId } = req.body;
 
         if (!content || !chatId) {
             return res.status(400).json({ message: "Invalid data passed into request"});
         }
 
         const newMessage = {
-            sender: req.user._id,
+            sender: senderId,
             content: content,
             chat: chatId,
         };
 
         var message = await Message.create(newMessage);
 
-        message = await message.populate("sender", "firstName lastName pic").execPopulate();
-        message = await message.populate("chat").execPopulate();
+        message = await message.populate("sender", "firstName lastName pictureUrl");
+        message = await message.populate("chat");
         message = await User.populate(message, {
             path: "chat.users",
             select: "firstName lastName pictureUrl email",
         });
+
+        await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
 
         return res.status(201).json(message);
     } catch (e) {

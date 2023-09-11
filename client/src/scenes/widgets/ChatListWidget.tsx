@@ -5,10 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {Chat, User} from "../../../types";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import UserImage from "../../components/UserImage";
 import {useNavigate} from "react-router-dom";
 import {setSelectedChat} from "../../state";
-import {formatDateTime} from "../../utils/ChatLogic";
+import ChatListItem from "../../components/ChatListItem";
 
 const ChatListWidget = () => {
     const {_id, friends} = useSelector((state: RootState) => state.currentUser) as User
@@ -64,45 +63,23 @@ const ChatListWidget = () => {
 
     useEffect(() => {
         getChats()
-        return  () => {
+        return () => {
             dispatch(setSelectedChat({chat: null}))
         }
     }, [getChats]);
+
+    useEffect(() => {
+        getChats()
+    }, [chat?.latestMessage]);
 
     return (
         <WidgetWrapper>
             <div className="-mt-4 -my-1 -mx-4">
                 {chats.map(chat =>
-                    <div
-                        key={chat._id}
-                        className="flex items-center gap-4 cursor-pointer p-2 rounded-xl hover:bg-neutral-light transition duration-300"
-                        onClick={(e) => handleClick(e, chat.participants[1]._id)}
-                    >
-                        <div className="">
-                            <UserImage imageUrl={chat.participants[1].pictureUrl}/>
-                        </div>
-                        <div className="w-full flex flex-col overflow-hidden text-sm sm:text-base text-neutral-medium">
-                            <div className="flex justify-between">
-                                <span
-                                    className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer max-w-min whitespace-nowrap"
-                                    onClick={() => {
-                                        navigate(`/profile/${chat.participants[1]._id}`);
-                                        navigate(0);
-                                    }}
-                                >
-                                    {chat.participants[1].firstName} {chat.participants[1].lastName}
-                                </span>
-                                <span className="">
-                                    {formatDateTime(chat?.latestMessage.createdAt.toString())}
-                                </span>
-                            </div>
-
-                            {/*{console.log(chat)}*/}
-                            <span className="font-medium whitespace-nowrap overflow-hidden truncate">
-                                {chat?.latestMessage?.content || "There's nothing here yet"}
-                            </span>
-                        </div>
-                    </div>
+                    <ChatListItem key={chat._id} onClick={handleClick} friend={chat.participants[1]} latestMessage={chat.latestMessage}/>
+                )}
+                {friends.filter((friend) => !chats.some((chat) => chat.participants[1]._id === friend._id || chat.participants[0]._id === friend._id)).map(friend =>
+                    <ChatListItem key={friend._id} onClick={handleClick} friend={friend} />
                 )}
             </div>
         </WidgetWrapper>

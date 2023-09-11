@@ -36,6 +36,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
             .then(res => {
                 const posts = res.data
                 dispatch(setPosts({posts}))
+                toast.success("Post has been created")
                 setImageUrl("")
                 setPost("")
                 setIsAttachment(false)
