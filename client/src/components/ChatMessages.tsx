@@ -30,13 +30,13 @@ const ChatMessages = ({messages}: Props) => {
     }
 
     return (
-        <div className="flex flex-col max-h-[80vh] pr-2 overflow-y-auto" ref={chatMessagesRef}>
+        <div className="flex flex-col max-h-[77.7vh] pr-2 overflow-y-auto" ref={chatMessagesRef}>
             {
                 messages?.map((message, index) => {
                     const isLast = isLastMessage(messages, index);
                     return (
                         <div key={message._id} className="flex items-center gap-2">
-                            <div className="w-[35px] h-[35px] -mt-4">
+                            <div className="w-[35px] h-[35px] -mt-4 ">
                                 {isLast && <UserImage imageUrl={message.sender.pictureUrl} sizeInPx={35}/>}
                             </div>
                             <div
@@ -44,17 +44,18 @@ const ChatMessages = ({messages}: Props) => {
                                     rounded-xl 
                                     ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
                                     py-2 pl-3 pr-12
-                                    relative
                                     text-base 
                                     text-neutral-dark
                                     transition
                                     duration-300
+                                    relative
                                     ${isLast ? "mb-4" : "mb-0.5"}
                                 `}
                             >
                                 {message.content}
                                 <span
-                                    className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{formatDateTime(message.createdAt.toString())}</span>
+                                    className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{formatDateTime(message.createdAt.toString())}
+                                </span>
                             </div>
                         </div>
                     );

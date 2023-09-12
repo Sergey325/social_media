@@ -38,6 +38,7 @@ const UserSchema = new mongoose.Schema(
         occupation: String,
         viewedProfile: Number,
         impressions: Number,
+        online: Boolean,
     }, {timestamps: true}
 )
 

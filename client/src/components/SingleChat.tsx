@@ -8,6 +8,9 @@ import io, {Socket} from "socket.io-client";
 import {setSelectedChat} from "../state";
 import ChatMessages from "./ChatMessages";
 import {IoMdSend} from "react-icons/io";
+import {BeatLoader} from "react-spinners";
+import {BiSolidCheckShield} from "react-icons/bi";
+import {IoChevronBackOutline} from "react-icons/io5";
 
 var socket: Socket, selectedChatCompare: Chat;
 
@@ -19,9 +22,12 @@ const SingleChat = ({chat}: Props) => {
     const [isLoading, setIsLoading] = useState(false)
     const [messages, setMessages] = useState<Message[]>()
     const [newMessage, setNewMessage] = useState("")
+    const [isTyping, setIsTyping] = useState(false)
+    const [typing, setTyping] = useState(false)
     const [isSocketConnected, setIsSocketConnected] = useState(false)
     const token = useSelector((state: RootState) => state.token)
-    const { _id } = useSelector((state: RootState) => state.currentUser) as User
+    const {_id} = useSelector((state: RootState) => state.currentUser) as User
+    const friend = chat.participants.find(participant => participant._id !== _id) as User
     const dispatch = useDispatch()
 
     const getMessages = useCallback(async () => {
@@ -37,7 +43,6 @@ const SingleChat = ({chat}: Props) => {
             )
             setMessages(response.data)
             setIsLoading(false)
-            console.log(chat._id)
             socket.emit("join chat", chat._id);
         } catch (error) {
             toast.error(`Error getting messages: ${error}`)
@@ -47,41 +52,41 @@ const SingleChat = ({chat}: Props) => {
     useEffect(() => {
         socket = io("http://localhost:3001")
         socket.emit("setup", _id)
-        socket.on("connection", () => setIsSocketConnected(true))
-    },[])
-
+        socket.on("connected", () => setIsSocketConnected(true))
+        socket.on("typing", () => setIsTyping(true));
+        socket.on("stop typing", () => setIsTyping(false));
+    }, [])
 
     useEffect(() => {
         getMessages()
         selectedChatCompare = chat
-    }, [chat])
-
+    }, [chat, getMessages])
 
     useEffect(() => {
-        socket.on("message recieved", (newMessageRecieved) => {
+        socket.on("message received", (newMessageReceived) => {
             if (
                 !selectedChatCompare || // if chat is not selected or doesn't match current chat
-                selectedChatCompare._id !== newMessageRecieved.chat._id
+                selectedChatCompare._id !== newMessageReceived.chat._id
             ) {
                 // if (!notification.includes(newMessageRecieved)) {
                 //     setNotification([newMessageRecieved, ...notification]);
                 //     setFetchAgain(!fetchAgain);
                 // }
             } else {
-                if (messages){
-                    setMessages([...messages, newMessageRecieved]);
+                if (messages) {
+                    setMessages([...messages, newMessageReceived]);
                 }
-
             }
         });
     });
 
     const sendMessage = async () => {
-        if(newMessage && messages){
+        if (newMessage && messages) {
+            socket.emit("stop typing", chat._id)
             try {
                 setIsLoading(true)
                 setNewMessage("")
-                const { data } = await axios.post('http://localhost:3001/messages',
+                const {data} = await axios.post('http://localhost:3001/messages',
                     {
                         content: newMessage,
                         chatId: chat?._id,
@@ -91,7 +96,8 @@ const SingleChat = ({chat}: Props) => {
                         headers: {
                             Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json"
-                        }}
+                        }
+                    }
                 )
                 socket.emit("new message", data);
                 setMessages([...messages, data]);
@@ -105,23 +111,63 @@ const SingleChat = ({chat}: Props) => {
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNewMessage(event.target.value)
-    }
+        setNewMessage(event.target.value);
 
-    if (!messages){
+        if (!isSocketConnected) return;
+
+        if (!typing) {
+            setTyping(true);
+            socket.emit("typing", chat._id);
+        }
+        let lastTypingTime = new Date().getTime();
+        var timerLength = 1500;
+        setTimeout(() => {
+            var timeNow = new Date().getTime();
+            var timeDiff = timeNow - lastTypingTime;
+            if ((timeDiff >= timerLength && typing) || !event.target.value) {
+                socket.emit("stop typing", chat._id);
+                setTyping(false);
+            }
+        }, timerLength);
+    };
+
+    if (!messages) {
         return null
     }
 
     return (
         <div className="min-h-full flex flex-col flex-grow justify-end">
-            <ChatMessages messages={messages}/>
-            <div className="">
-                <div className="flex items-center justify-end text-sm gap-2 pt-3">
+            <div className="min-h-full relative">
+                <div className="-mx-2 sm:-mx-6 pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-[0px_10px_10px_rgba(0,0,0,0.5)] z-10 relative">
+                    <div className="flex gap-1 items-center">
+                        <div className="px-1">
+                            <IoChevronBackOutline
+                                size={32}
+                                className="text-neutral-medium hover:text-neutral-dark cursor-pointer transition duration-300"
+                                onClick={() => dispatch(setSelectedChat({chat: null}))}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                        <span className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer whitespace-nowrap max-w-min  transition duration-300">
+                            {friend.firstName} {friend.lastName}
+                        </span>
+                            <span className="text-neutral-medium text-sm  transition duration-300">
+                            {friend.online ? "online" : "last seen recently"}
+                        </span>
+                        </div>
+                    </div>
+                    <BiSolidCheckShield size={28} className="text-primary-main"/>
+                </div>
+                <ChatMessages messages={messages}/>
+                <div className="h-[25px] -mt-2 pb-1">
+                    {isTyping && <BeatLoader color="#33DDFB" size={15} />}
+                </div>
+                <div className="flex items-center justify-end text-sm gap-2 ">
                     <input
                         type="text"
                         disabled={isLoading}
                         onKeyUp={(event) => {
-                            if(event.key === "Enter"){
+                            if (event.key === "Enter") {
                                 event.preventDefault()
                                 sendMessage()
                             }
@@ -129,17 +175,17 @@ const SingleChat = ({chat}: Props) => {
                         onChange={handleChange}
                         value={newMessage}
                         className="
-                                w-full
-                                appearance-none
-                                outline-none
-                                py-2
-                                px-4
-                                rounded-3xl
-                                bg-neutral-light
-                                text-neutral-dark
-                                transition
-                                duration-300
-                            "
+                        w-full
+                        appearance-none
+                        outline-none
+                        py-2
+                        px-4
+                        rounded-3xl
+                        bg-neutral-light
+                        text-neutral-dark
+                        transition
+                        duration-300
+                    "
                         placeholder="Write a message..."
                     />
                     <IoMdSend
@@ -148,8 +194,8 @@ const SingleChat = ({chat}: Props) => {
                         onClick={sendMessage}
                     />
                 </div>
-
             </div>
+
         </div>
     );
 };

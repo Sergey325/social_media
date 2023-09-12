@@ -103,7 +103,7 @@ const PostWidget = ({
                 </div>
                 <AiOutlineShareAlt className="cursor-pointer hover:text-neutral-mediumMain" size={26}/>
             </div>
-            {isComments && comments.length > 0 &&
+            {isComments &&
                 <div className="mt-2">
                     {comments.map((comment, i) => (
                         <div key={`${name}-${i}`}>

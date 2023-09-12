@@ -10,6 +10,8 @@ export type User = {
     occupation: string,
     viewedProfile: number,
     impressions: number,
+    online: boolean,
+
 }
 
 export type Post = {
@@ -32,6 +34,7 @@ export type FriendType = {
     occupation: string,
     location: string,
     pictureUrl: string
+    online: boolean,
 }
 
 export type Comment = {

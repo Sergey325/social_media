@@ -54,25 +54,40 @@ mongoose.connect(process.env.MONGO_URL, {
     io.on("connection", (socket) => {
         console.log("A user connected");
 
-        socket.on("setup", (userId) => {
+        let user;
+
+        socket.on("setup", async (userId) => {
             socket.join(userId);
             socket.emit("connected");
+            user = await User.findOne({ _id: userId });
         });
 
-        socket.on("join chat", (roomId) => {
-            socket.join(roomId);
-            console.log("User Joined Room: " + roomId);
+        socket.on("join chat", (chatId) => {
+            socket.join(chatId);
+            console.log("User Joined Chat: " + chatId);
         });
-        socket.on("new message", (newMessageRecieved) => {
-            var chat = newMessageRecieved.chat;
+
+        socket.on("typing", (chat) => socket.in(chat).emit("typing"));
+        socket.on("stop typing", (chat) => socket.in(chat).emit("stop typing"));
+
+        socket.on("new message", (newMessageReceived) => {
+            var chat = newMessageReceived.chat;
 
             if (!chat.participants) return console.log("chat.users not defined");
 
             chat.participants.forEach((user) => {
-                if (user._id == newMessageRecieved.sender._id) return;
-                console.log(newMessageRecieved, "receiving")
-                socket.in(chat._id).emit("message recieved", newMessageRecieved);
+                if (user._id == newMessageReceived.sender._id) return;
+                socket.in(chat._id).emit("message received", newMessageReceived);
             });
+        });
+
+        socket.on("disconnect", async () => {
+            console.log("disconnect")
+            if (user) {
+                user.online = false;
+                await user.save();
+                socket.broadcast.emit("user offline", user._id);
+            }
         });
     });
 

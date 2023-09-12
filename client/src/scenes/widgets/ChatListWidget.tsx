@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {Chat, User} from "../../../types";
+import {Chat, FriendType, User} from "../../../types";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import {useNavigate} from "react-router-dom";
 import {setSelectedChat} from "../../state";
@@ -15,7 +15,6 @@ const ChatListWidget = () => {
     const chat = useSelector((state: RootState) => state.selectedChat)
     const token = useSelector((state: RootState) => state.token)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, friendId: string ) => {
         e.stopPropagation()
@@ -76,9 +75,11 @@ const ChatListWidget = () => {
         <WidgetWrapper>
             <div className="-mt-4 -my-1 -mx-4">
                 {chats.map(chat =>
-                    <ChatListItem key={chat._id} onClick={handleClick} friend={chat.participants[1]} latestMessage={chat.latestMessage}/>
+                    <ChatListItem key={chat._id} onClick={handleClick} friend={chat.participants.find(participant => participant._id !== _id) as FriendType} latestMessage={chat.latestMessage}/>
                 )}
-                {friends.filter((friend) => !chats.some((chat) => chat.participants[1]._id === friend._id || chat.participants[0]._id === friend._id)).map(friend =>
+                {friends.filter((friend) =>
+                    !chats.some((chat) => chat.participants[1]._id === friend._id || chat.participants[0]._id === friend._id))
+                    .map(friend =>
                     <ChatListItem key={friend._id} onClick={handleClick} friend={friend} />
                 )}
             </div>
