@@ -1,10 +1,6 @@
 import Form from "./Form";
 
-type Props = {
-
-};
-
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
     return (
         <div className="h-[100%]">
             <div className="w-full py-4 px-[6%] text-center bg-bkg-alt">

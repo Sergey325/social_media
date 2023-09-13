@@ -10,7 +10,7 @@ type Props = {
     errors: FieldErrors
 };
 
-const Input = ({id, label, type = "text", disabled, required, register, errors}: Props) => {
+const FormInput = ({id, label, type = "text", disabled, required, register, errors}: Props) => {
 
 
     return (
@@ -65,4 +65,4 @@ const Input = ({id, label, type = "text", disabled, required, register, errors}:
     );
 };
 
-export default Input;
+export default FormInput;

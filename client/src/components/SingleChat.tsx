@@ -11,6 +11,7 @@ import {IoMdSend} from "react-icons/io";
 import {BeatLoader} from "react-spinners";
 import {BiSolidCheckShield} from "react-icons/bi";
 import {IoChevronBackOutline} from "react-icons/io5";
+import ToolTip from "./ToolTip";
 
 var socket: Socket, selectedChatCompare: Chat;
 
@@ -138,15 +139,17 @@ const SingleChat = ({chat}: Props) => {
     return (
         <div className="min-h-full flex flex-col flex-grow justify-end">
             <div className="min-h-full relative">
-                <div className="-mx-2 sm:-mx-6 pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-[0px_10px_10px_rgba(0,0,0,0.5)] z-10 relative">
+                <div className="-mx-2 sm:-mx-6 pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 relative">
                     <div className="flex gap-1 items-center">
-                        <div className="px-1">
-                            <IoChevronBackOutline
-                                size={32}
-                                className="text-neutral-medium hover:text-neutral-dark cursor-pointer transition duration-300"
-                                onClick={() => dispatch(setSelectedChat({chat: null}))}
-                            />
-                        </div>
+                        <ToolTip label="Back to chats">
+                            <div className="px-1">
+                                <IoChevronBackOutline
+                                    size={32}
+                                    className="text-neutral-medium hover:text-neutral-dark cursor-pointer transition duration-300"
+                                    onClick={() => dispatch(setSelectedChat({chat: null}))}
+                                />
+                            </div>
+                        </ToolTip>
                         <div className="flex flex-col">
                         <span className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer whitespace-nowrap max-w-min  transition duration-300">
                             {friend.firstName} {friend.lastName}
@@ -156,7 +159,9 @@ const SingleChat = ({chat}: Props) => {
                         </span>
                         </div>
                     </div>
-                    <BiSolidCheckShield size={28} className="text-primary-main"/>
+                    <ToolTip label="Stable connection">
+                        <BiSolidCheckShield size={28} className="text-primary-main"/>
+                    </ToolTip>
                 </div>
                 <ChatMessages messages={messages}/>
                 <div className="h-[25px] -mt-2 pb-1">
@@ -175,18 +180,18 @@ const SingleChat = ({chat}: Props) => {
                         onChange={handleChange}
                         value={newMessage}
                         className="
-                        w-full
-                        appearance-none
-                        outline-none
-                        py-2
-                        px-4
-                        rounded-3xl
-                        bg-neutral-light
-                        text-neutral-dark
-                        transition
-                        duration-300
-                    "
-                        placeholder="Write a message..."
+                            w-full
+                            appearance-none
+                            outline-none
+                            py-2
+                            px-4
+                            rounded-3xl
+                            bg-neutral-light
+                            text-neutral-dark
+                            transition
+                            duration-300
+                        "
+                        placeholder={"Enter a message..."}
                     />
                     <IoMdSend
                         size={32}

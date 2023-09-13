@@ -12,8 +12,8 @@ const ThemeToggle = () => {
         <div className="flex justify-center transition duration-300 cursor-pointer md:hover:bg-neutral-light rounded-full" onClick={() => dispatch(setMode())}>
             {
                 mode === "light"
-                    ? <MdDarkMode className="p-1.5 lg:p-1 transition pointer-events-auto md:pointer-events-none" size={32} onClick={() => dispatch(setMode())}/>
-                    : <MdLightMode className="p-1.5 lg:p-1 transition pointer-events-auto md:pointer-events-none" size={32} onClick={() => dispatch(setMode())}/>
+                ? <MdDarkMode className="p-1.5 lg:p-1 transition pointer-events-auto md:pointer-events-none" size={32} onClick={() => dispatch(setMode())}/>
+                : <MdLightMode className="p-1.5 lg:p-1 transition pointer-events-auto md:pointer-events-none" size={32} onClick={() => dispatch(setMode())}/>
             }
         </div>
     );

@@ -3,13 +3,13 @@ import {RootState} from "../index";
 import {Message, User} from "../../types";
 import UserImage from "./UserImage";
 import {formatDateTime, isLastMessage} from "../utils/ChatLogic";
-import {useEffect, useRef} from "react";
+import {memo, useEffect, useRef} from "react";
 
 type Props = {
     messages: Message[]
 }
 
-const ChatMessages = ({messages}: Props) => {
+const ChatMessages = memo(({messages}: Props) => {
     const chat = useSelector((state: RootState) => state.selectedChat)
     const {_id} = useSelector((state: RootState) => state.currentUser) as User
 
@@ -63,6 +63,6 @@ const ChatMessages = ({messages}: Props) => {
             }
         </div>
     );
-};
+});
 
 export default ChatMessages;

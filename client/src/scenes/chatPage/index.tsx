@@ -4,7 +4,6 @@ import ChatWidget from "../widgets/ChatWidget";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 
-
 const ChatPage = () => {
     const chat = useSelector((state: RootState) => state.selectedChat)
 

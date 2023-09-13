@@ -65,10 +65,10 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
                 <div className="bg-primary-light p-2.5 text-primary-dark rounded-full cursor-pointer transition duration-300" onClick={() => patchFriend()}>
                     {
                         isFriend
-                            ?
-                            <MdOutlinePersonRemoveAlt1 size={18}/>
-                            :
-                            <MdPersonAddAlt size={18}/>
+                        ?
+                        <MdOutlinePersonRemoveAlt1 size={18}/>
+                        :
+                        <MdPersonAddAlt size={18}/>
                     }
                 </div>
             }

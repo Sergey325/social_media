@@ -50,16 +50,15 @@ mongoose.connect(process.env.MONGO_URL, {
             // credentials: true,
         }})
 
-    // Добавьте обработчики WebSocket событий здесь
     io.on("connection", (socket) => {
         console.log("A user connected");
 
-        let user;
+        // let user;
 
         socket.on("setup", async (userId) => {
             socket.join(userId);
             socket.emit("connected");
-            user = await User.findOne({ _id: userId });
+            // user = await User.findOne({ _id: userId });
         });
 
         socket.on("join chat", (chatId) => {
@@ -81,14 +80,14 @@ mongoose.connect(process.env.MONGO_URL, {
             });
         });
 
-        socket.on("disconnect", async () => {
-            console.log("disconnect")
-            if (user) {
-                user.online = false;
-                await user.save();
-                socket.broadcast.emit("user offline", user._id);
-            }
-        });
+        // socket.on("disconnect", async () => {
+        //     console.log("disconnect")
+        //     if (user) {
+        //         user.online = false;
+        //         await user.save();
+        //         socket.broadcast.emit("user offline", user._id);
+        //     }
+        // });
     });
 
     server.listen(PORT, () => console.log(`Server Port: ${PORT}`));

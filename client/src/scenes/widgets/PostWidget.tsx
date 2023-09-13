@@ -11,8 +11,9 @@ import {BsChatLeft} from "react-icons/bs";
 import UserImage from "../../components/UserImage";
 import {Comment} from "../../../types";
 import {useNavigate} from "react-router-dom";
-import {formatDistanceToNow, format} from 'date-fns';
+import {formatDistanceToNow} from 'date-fns';
 import CreateComment from "../../components/CreateComment";
+import ToolTip from "../../components/ToolTip";
 
 type Props = {
     postId: string,
@@ -63,7 +64,6 @@ const PostWidget = ({
     };
 
     const readableDate = (commentDate: Date): string => {
-        const currentTime = new Date();
         return formatDistanceToNow(new Date(commentDate)) + " ago";
     }
 
@@ -101,7 +101,9 @@ const PostWidget = ({
                         <span className="text-neutral-dark ">{comments.length}</span>
                     </div>
                 </div>
-                <AiOutlineShareAlt className="cursor-pointer hover:text-neutral-mediumMain" size={26}/>
+                <ToolTip label="Share">
+                    <AiOutlineShareAlt className="cursor-pointer hover:text-neutral-mediumMain" size={26}/>
+                </ToolTip>
             </div>
             {isComments &&
                 <div className="mt-2">

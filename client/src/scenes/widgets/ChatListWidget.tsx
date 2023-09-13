@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {Chat, FriendType, User} from "../../../types";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import {useNavigate} from "react-router-dom";
 import {setSelectedChat} from "../../state";
 import ChatListItem from "../../components/ChatListItem";
 
@@ -37,7 +36,6 @@ const ChatListWidget = () => {
                     }
                 }
             )
-            // setSelectedChat(response.data)
             dispatch(setSelectedChat({chat: response.data}))
         } catch (error) {
             toast.error(`Error accessing chat: ${error}`)

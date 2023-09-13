@@ -5,10 +5,9 @@ import {SubmitHandler, useForm, FieldValues} from "react-hook-form";
 import axios from "axios";
 import {setLogin} from "../../state";
 import Button from "../../components/Button";
-import Input from "../../components/Input";
+import FormInput from "../../components/FormInput";
 import ImageUpload from "../../components/ImageUpload";
 import toast from 'react-hot-toast';
-
 
 const Form = () => {
     const [pageType, setPageType] = useState("login");
@@ -106,7 +105,7 @@ const Form = () => {
                 pageType === "register" &&
                 <>
                     <div className="flex gap-4">
-                        <Input
+                        <FormInput
                             id="firstName"
                             label='First Name'
                             disabled={isLoading}
@@ -114,7 +113,7 @@ const Form = () => {
                             errors={errors}
                             required
                         />
-                        <Input
+                        <FormInput
                             id="lastName"
                             label='lastName'
                             disabled={isLoading}
@@ -123,7 +122,7 @@ const Form = () => {
                             required
                         />
                     </div>
-                    <Input
+                    <FormInput
                         id="location"
                         label='Location'
                         disabled={isLoading}
@@ -131,7 +130,7 @@ const Form = () => {
                         errors={errors}
                         required
                     />
-                    <Input
+                    <FormInput
                         id="occupation"
                         label='Occupation'
                         disabled={isLoading}
@@ -145,7 +144,7 @@ const Form = () => {
                 </>
             }
 
-            <Input
+            <FormInput
                 id="email"
                 label='Email'
                 disabled={isLoading}
@@ -153,7 +152,7 @@ const Form = () => {
                 errors={errors}
                 required
             />
-            <Input
+            <FormInput
                 id="password"
                 type="password"
                 label='Password'

@@ -17,10 +17,8 @@ export const getAllMessages = async (req, res) => {
 }
 
 
-// READ or CREATE
+// CREATE
 export const sendMessage = async (req, res) => {
-
-
     try {
         const { content, chatId, senderId } = req.body;
 

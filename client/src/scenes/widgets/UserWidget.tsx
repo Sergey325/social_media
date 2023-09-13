@@ -23,7 +23,6 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
     const navigate = useNavigate()
     const token =  useSelector((state: RootState) => state.token);
 
-
     useEffect(() => {
         const getUser = async () => {
             try {
