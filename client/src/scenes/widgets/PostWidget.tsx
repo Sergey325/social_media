@@ -8,12 +8,9 @@ import Friend from "../../components/Friend";
 import {AiOutlineShareAlt} from "react-icons/ai";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {BsChatLeft} from "react-icons/bs";
-import UserImage from "../../components/UserImage";
 import {Comment} from "../../../types";
-import {useNavigate} from "react-router-dom";
-import {formatDistanceToNow} from 'date-fns';
-import CreateComment from "../../components/CreateComment";
 import ToolTip from "../../components/ToolTip";
+import Comments from "../../components/Comments";
 
 type Props = {
     postId: string,
@@ -40,7 +37,6 @@ const PostWidget = ({
 }: Props) => {
     const [isComments, setIsComments] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const token = useSelector((state: RootState) => state.token);
     const loggedInUserId = useSelector((state: RootState) => state.currentUser?._id) as string;
     const isLiked = Boolean(likes[loggedInUserId]);
@@ -62,10 +58,6 @@ const PostWidget = ({
             console.error("Error patching like:", error);
         }
     };
-
-    const readableDate = (commentDate: Date): string => {
-        return formatDistanceToNow(new Date(commentDate)) + " ago";
-    }
 
     return (
         <WidgetWrapper>
@@ -106,39 +98,7 @@ const PostWidget = ({
                 </ToolTip>
             </div>
             {isComments &&
-                <div className="mt-2">
-                    {comments.map((comment, i) => (
-                        <div key={`${name}-${i}`}>
-                            <hr className="border-neutral-500"/>
-                            <div className="my-2 pl-1">
-                                <div className="flex items-center gap-2">
-                                    <UserImage imageUrl={comment.userPictureUrl} sizeInPx={40}/>
-                                    <div
-                                        className="flex flex-col text-sm"
-                                        onClick={() => {
-                                            navigate(`/profile/${comment.userId}`);
-                                            navigate(0);
-                                        }}
-                                    >
-                                        <span className="text-neutral-main hover:text-primary-light cursor-pointer">
-                                            {comment.firstName} {comment.lastName}
-                                        </span>
-                                        <span className="text-neutral-medium ">
-                                            {readableDate(comment.date)}
-                                        </span>
-                                    </div>
-                                </div>
-                                <p className="text-neutral-main text-base my-1">
-                                    {comment.text}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                    <hr className="border-neutral-500"/>
-                    <div className="mt-3">
-                        <CreateComment postId={postId}/>
-                    </div>
-                </div>
+                <Comments postId={postId} comments={comments}/>
             }
         </WidgetWrapper>
     );

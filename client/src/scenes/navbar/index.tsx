@@ -45,10 +45,10 @@ const Navbar = () => {
         }
 
         return options
-    }, [fullName, windowWidth, dispatch])
+    }, [fullName, windowWidth, dispatch, navigate])
 
     return (
-        <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition duration-300 fixed">
+        <div className="flex px-5 sm:px-20  justify-between items-center py-4 w-full bg-bkg-alt transition duration-300 drop-shadow-md z-30 fixed">
             <h1
                 className="font-bold text-xl md:text-2xl lg:text-3xl cursor-pointer text-primary-main hover:text-primary-light select-none transition"
                 onClick={() => navigate("/home")}
@@ -78,7 +78,7 @@ const Navbar = () => {
                         px-1
                         z-10
                     "
-                    childStyle={"flex items-center justify-center bg-neutral-light hover:bg-neutral-medium text-sm drop-shadow-xl"}
+                    childStyle={"flex items-center justify-center bg-neutral-light hover:bg-neutral-medium text-sm"}
                     hrAfter={windowWidth < 640 ? [5] : [1]}
                     options={options}
                     selection={false}

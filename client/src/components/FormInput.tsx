@@ -12,7 +12,6 @@ type Props = {
 
 const FormInput = ({id, label, type = "text", disabled, required, register, errors}: Props) => {
 
-
     return (
         <div className="w-full relative">
             <input

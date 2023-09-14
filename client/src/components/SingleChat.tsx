@@ -137,9 +137,9 @@ const SingleChat = ({chat}: Props) => {
     }
 
     return (
-        <div className="min-h-full flex flex-col flex-grow justify-end">
-            <div className="min-h-full relative">
-                <div className="-mx-2 sm:-mx-6 pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 relative">
+        <div className="min-h-full flex flex-col flex-grow justify-end relative">
+            <div className="min-h-full">
+                <div className="absolute top-0 left-0 w-full pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 ">
                     <div className="flex gap-1 items-center">
                         <ToolTip label="Back to chats">
                             <div className="px-1">
@@ -163,23 +163,24 @@ const SingleChat = ({chat}: Props) => {
                         <BiSolidCheckShield size={28} className="text-primary-main"/>
                     </ToolTip>
                 </div>
-                <ChatMessages messages={messages}/>
-                <div className="h-[25px] -mt-2 pb-1">
-                    {isTyping && <BeatLoader color="#33DDFB" size={15} />}
-                </div>
-                <div className="flex items-center justify-end text-sm gap-2 ">
-                    <input
-                        type="text"
-                        disabled={isLoading}
-                        onKeyUp={(event) => {
-                            if (event.key === "Enter") {
-                                event.preventDefault()
-                                sendMessage()
-                            }
-                        }}
-                        onChange={handleChange}
-                        value={newMessage}
-                        className="
+                <div className="px-2 sm:px-6">
+                    <ChatMessages messages={messages}/>
+                    <div className="h-[25px] -mt-2 pb-1">
+                        {isTyping && <BeatLoader color="#33DDFB" size={15} />}
+                    </div>
+                    <div className="flex items-center justify-end text-sm gap-2 ">
+                        <input
+                            type="text"
+                            disabled={isLoading}
+                            onKeyUp={(event) => {
+                                if (event.key === "Enter") {
+                                    event.preventDefault()
+                                    sendMessage()
+                                }
+                            }}
+                            onChange={handleChange}
+                            value={newMessage}
+                            className="
                             w-full
                             appearance-none
                             outline-none
@@ -191,13 +192,14 @@ const SingleChat = ({chat}: Props) => {
                             transition
                             duration-300
                         "
-                        placeholder={"Enter a message..."}
-                    />
-                    <IoMdSend
-                        size={32}
-                        className="text-neutral-main hover:text-primary-main cursor-pointer transition"
-                        onClick={sendMessage}
-                    />
+                            placeholder={"Enter a message..."}
+                        />
+                        <IoMdSend
+                            size={32}
+                            className="text-neutral-main hover:text-primary-main cursor-pointer transition"
+                            onClick={sendMessage}
+                        />
+                    </div>
                 </div>
             </div>
 

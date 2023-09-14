@@ -43,8 +43,10 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
 
     return (
         <div className="flex justify-between items-center w-full text-sm">
-            <div className="flex items-center gap-4">
-                <UserImage imageUrl={userPictureUrl} sizeInPx={55} />
+            <div className="flex items-center justify-between gap-3">
+                <div>
+                    <UserImage imageUrl={userPictureUrl} sizeInPx={50} />
+                </div>
                 <div
                     className="flex flex-col"
                     onClick={() => {

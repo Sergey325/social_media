@@ -48,11 +48,15 @@ const ChatMessages = memo(({messages}: Props) => {
                                     text-neutral-dark
                                     transition
                                     duration-300
+                                    break-words
                                     relative
                                     ${isLast ? "mb-4" : "mb-0.5"}
                                 `}
                             >
-                                {message.content}
+                                <div className="">
+                                    <span className="break-all">{message.content}</span>
+                                </div>
+
                                 <span
                                     className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{formatDateTime(message.createdAt.toString())}
                                 </span>

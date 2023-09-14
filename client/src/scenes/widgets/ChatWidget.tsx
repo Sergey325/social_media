@@ -8,7 +8,7 @@ const ChatWidget = () => {
 
     return (
         <div
-            className={`flex justify-center flex-col px-2 sm:px-6 pt-0 pb-3 rounded-xl bg-bkg-alt transition duration-300 ${chat ? "min-h-[77.7vh]" : "min-h-[85vh]"}`}>
+            className={`flex justify-center flex-col pt-0 pb-3 rounded-xl bg-bkg-alt transition duration-300 ${chat ? "min-h-[77.7vh]" : "min-h-[85vh]"}`}>
             {chat
                 ?
                 <SingleChat chat={chat}/>

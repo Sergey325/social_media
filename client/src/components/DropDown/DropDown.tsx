@@ -1,5 +1,4 @@
 import React, {ReactNode, useCallback, useEffect, useState} from "react";
-import DropDownItem from "components/DropDown/DropDownItem";
 import {BiSolidDownArrow} from "react-icons/bi";
 import {IconType} from "react-icons";
 
@@ -35,13 +34,18 @@ const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, 
         option.onSelected();
     }, [selectedOption?.value, selection]);
 
+    const toggleDropDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation()
+        setIsOpen(value => !value)
+    }
+
     useEffect(() => {
         setIsOpen(false);
     }, [selectedOption]);
 
     return (
         <div
-            onClick={() => {setIsOpen((value) => !value)}}
+            onClick={toggleDropDown}
             className={`
                 relative
                 md:py-1 md:px-2
@@ -94,16 +98,16 @@ const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, 
                 <div className="flex flex-col h-full items-center cursor-pointer text-md w-full">
                     {options.map((option, key) => (
                         (
-                            <div key={key + option.value} className="w-full" onClick={() => handleSelectOption(option)}>
+                            <div key={key + option.value} className="w-full" >
                                 {hrAfter?.includes(key) && (
                                     <hr className="border-neutral-medium"/>
                                 )}
-                                <DropDownItem
-                                    label={option.label}
-                                    item={option.item}
-                                    icon={option.icon}
-                                    childStyle={childStyle}
-                                />
+                                <div className={`${childStyle} py-3`}>
+                                    <div className="flex items-center justify-center w-full" onClick={() => handleSelectOption(option)}>
+                                        {option.item && option.item}
+                                        {option.icon ? <option.icon size={20}/> : option.label}
+                                    </div>
+                                </div>
                             </div>
                         ))
                     )}

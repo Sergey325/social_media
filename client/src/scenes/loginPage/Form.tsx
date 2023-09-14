@@ -28,8 +28,8 @@ const Form = () => {
         defaultValues: {
             firstName: '',
             lastName: '',
-            email: '',
-            password: '',
+            email: 'test@gmail.com',
+            password: 'test',
             location: '',
             occupation: '',
             pictureUrl: '',

@@ -28,6 +28,7 @@ const ToolTip = ({children, label}: Props) => {
                     cursor-default 
                     ${isShow ? "opacity-100" : "opacity-0"} 
                     transition 
+                    duration-300
                     rounded-md
                     pointer-events-none
                     `
