@@ -18,7 +18,7 @@ const FriendListWidget = ({userId}: Props) => {
 
     const getFriends = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/users/${userId}/friends`, {
+            const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/users/${userId}/friends`, {
                 headers: {Authorization: `Bearer ${token}`},
             });
             const data = response.data;

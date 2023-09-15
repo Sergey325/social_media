@@ -25,7 +25,7 @@ const ChatListWidget = () => {
     const createOrSelectChat = async (friendId: string) => {
         try {
             const response = await axios.post(
-                `http://localhost:3001/chats/`,
+                `${process.env.REACT_APP_ENDPOINT}/chats/`,
                 {
                     userId1: _id,
                     userId2: friendId
@@ -45,7 +45,7 @@ const ChatListWidget = () => {
     const getChats = useCallback(async () => {
         try {
             const response = await axios.get(
-                `http://localhost:3001/chats/${_id}`,
+                `${process.env.REACT_APP_ENDPOINT}/chats/${_id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

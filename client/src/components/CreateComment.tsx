@@ -21,7 +21,7 @@ const CreateComment = ({postId}: Props) => {
 
     const handleCreateComment = async () => {
         setIsLoading(true)
-        axios.patch(`http://localhost:3001/posts/${postId}/comment`, {
+        axios.patch(`${process.env.REACT_APP_ENDPOINT}/posts/${postId}/comment`, {
             userId: _id,
             comment: comment
         }, {

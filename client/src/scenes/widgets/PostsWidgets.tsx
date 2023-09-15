@@ -17,7 +17,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
 
     const getPosts = useCallback(async () => {
         try {
-            const response = await axios.get('http://localhost:3001/posts', {
+            const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/posts`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const reversedPosts = [...response.data].reverse();
@@ -29,7 +29,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
 
     const getUserPosts = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/posts/${userId}/posts`, {
+            const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/posts/${userId}/posts`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             dispatch(setPosts({ posts: response.data }));

@@ -24,7 +24,7 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
     const patchFriend = async () => {
         try {
             const response = await axios.patch(
-                `http://localhost:3001/users/${_id}/${friendId}`,
+                `${process.env.REACT_APP_ENDPOINT}/users/${_id}/${friendId}`,
                 {},
                 {
                     headers: {

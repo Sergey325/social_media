@@ -44,7 +44,7 @@ const PostWidget = ({
 
     const patchLike = async () => {
         try {
-            const response = await axios.patch(`http://localhost:3001/posts/${postId}/like`, {
+            const response = await axios.patch(`${process.env.REACT_APP_ENDPOINT}/posts/${postId}/like`, {
                 userId: loggedInUserId
             }, {
                 headers: {

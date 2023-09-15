@@ -21,7 +21,7 @@ const ProfilePage = () => {
 
     const getUser = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/users/${userId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = response.data;

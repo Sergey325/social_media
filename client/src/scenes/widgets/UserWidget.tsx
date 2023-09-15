@@ -26,7 +26,7 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/users/${userId}`, {
+                const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/users/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUser(response.data);

@@ -49,7 +49,7 @@ const Form = () => {
 
     const registerUser = (formData: FieldValues) => {
         setIsLoading(true)
-        axios.post('http://localhost:3001/auth/register', formData)
+        axios.post(`${process.env.REACT_APP_ENDPOINT}/auth/register`, formData)
             .then((res) => {
                 const savedUser = res.data
                 if (savedUser) {
@@ -67,7 +67,7 @@ const Form = () => {
 
     const loginUser = (formData: FieldValues) => {
         setIsLoading(true)
-        axios.post("http://localhost:3001/auth/login", formData)
+        axios.post(`${process.env.REACT_APP_ENDPOINT}/auth/login`, formData)
             .then(res => {
                 const loggedIn = res.data
                 reset()

@@ -35,7 +35,7 @@ const SingleChat = ({chat}: Props) => {
         try {
             setIsLoading(true)
             const response = await axios.get(
-                `http://localhost:3001/messages/${chat._id}`,
+                `${process.env.REACT_APP_ENDPOINT}/messages/${chat._id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ const SingleChat = ({chat}: Props) => {
     }, [chat?._id, token])
 
     useEffect(() => {
-        socket = io("http://localhost:3001")
+        socket = io(`${process.env.REACT_APP_ENDPOINT}`)
         socket.emit("setup", _id)
         socket.on("connected", () => setIsSocketConnected(true))
         socket.on("typing", () => setIsTyping(true));
@@ -87,7 +87,7 @@ const SingleChat = ({chat}: Props) => {
             try {
                 setIsLoading(true)
                 setNewMessage("")
-                const {data} = await axios.post('http://localhost:3001/messages',
+                const {data} = await axios.post(`${process.env.REACT_APP_ENDPOINT}/messages`,
                     {
                         content: newMessage,
                         chatId: chat?._id,

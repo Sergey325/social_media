@@ -7,3 +7,6 @@ yarn-error.log*
 /.idea
 /server/node_modules/
 /server/data/index.js
+/server/.dockerignore
+/server/fly.toml
+

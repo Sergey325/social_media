@@ -29,7 +29,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
             "description": post,
             "pictureUrl": imageUrl
         }
-        axios.post('http://localhost:3001/posts', data,
+        axios.post(`${process.env.REACT_APP_ENDPOINT}/posts`, data,
             {
                 headers: { Authorization: `Bearer ${token}` }
             })

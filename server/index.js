@@ -34,7 +34,7 @@ app.use("/chats", chatRoutes)
 app.use("/messages", messageRoutes)
 
 // MONGOOSE SETUP
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -46,7 +46,7 @@ mongoose.connect(process.env.MONGO_URL, {
         {
         pingTimeout: 60000,
         cors: {
-            origin: "http://localhost:3000",
+            origin: `http://localhost:${process.env.PORT}`,
             // credentials: true,
         }})
 
