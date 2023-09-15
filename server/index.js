@@ -46,7 +46,7 @@ mongoose.connect(process.env.MONGO_URL, {
         {
         pingTimeout: 60000,
         cors: {
-            origin: `http://localhost:${process.env.PORT}`,
+            origin: process.env.ENDPOINT,
             // credentials: true,
         }})
 
