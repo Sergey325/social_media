@@ -34,8 +34,10 @@ export const authSlice = createSlice({
             state.currentUser = null;
             state.token = null;
         },
-        setFriends: (state, action: PayloadAction<{ friends: FriendType[] }>) => {
-            if(state.currentUser) {
+        setFriends: (state, action: PayloadAction<{ friends: FriendType[], visited?: boolean }>) => {
+            if(action.payload.visited && state.visitedUser) {
+                state.visitedUser.friends = action.payload.friends
+            } else if(state.currentUser){
                 state.currentUser.friends = action.payload.friends
             } else {
                 console.error("user friends non-existent")

@@ -9,24 +9,24 @@ import AdvertWidget from "../widgets/AdvertWidget";
 import FriendListWidget from "../widgets/FriendListWidget";
 
 const HomePage = () => {
-    const {_id, pictureUrl} = useSelector((state: RootState) => state.currentUser as User);
+    const user = useSelector((state: RootState) => state.currentUser as User);
 
     return (
         <>
             <Navbar/>
             <div className="h-[100%] mt-16 block lg:flex w-full py-8 px-5 sm:px-20 gap-2 justify-between">
                 <div className="lg:basis-1/4 flex flex-col gap-8">
-                    <UserWidget userId={_id} pictureUrl={pictureUrl}/>
+                    <UserWidget userId={user._id} pictureUrl={user.pictureUrl}/>
                     <AdvertWidget/>
                 </div>
                 <div className="lg:basis-5/12 mt-8 lg:mt-0">
-                    <MyPostWidget pictureUrl={pictureUrl}/>
-                    <PostsWidget userId={_id} />
+                    <MyPostWidget pictureUrl={user.pictureUrl}/>
+                    <PostsWidget userId={user._id} />
                 </div>
                 <div className="hidden lg:block basis-1/4">
                     <AdvertWidget/>
                     <div className="my-8">
-                        <FriendListWidget userId={_id}/>
+                        <FriendListWidget userId={user._id}/>
                     </div>
                 </div>
             </div>

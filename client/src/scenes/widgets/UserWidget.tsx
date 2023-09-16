@@ -10,6 +10,7 @@ import {IoLocationSharp} from "react-icons/io5";
 import {AiOutlineTwitter} from "react-icons/ai";
 import {BsLinkedin} from "react-icons/bs";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type Props = {
     userId: string,
@@ -32,6 +33,7 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
                 setUser(response.data);
             } catch (error) {
                 console.error("Error fetching user:", error);
+                toast.error("Error fetching user")
             }
         };
         getUser();

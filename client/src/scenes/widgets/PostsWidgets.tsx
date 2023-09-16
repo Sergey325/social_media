@@ -4,6 +4,7 @@ import {setPosts} from "../../state";
 import {useCallback, useEffect} from "react";
 import axios from "axios";
 import PostWidget from "./PostWidget";
+import toast from "react-hot-toast";
 
 type Props = {
     userId: string;
@@ -24,6 +25,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
             dispatch(setPosts({ posts: reversedPosts }));
         } catch (error) {
             console.error('Error fetching posts:', error);
+            toast.error('Error fetching posts')
         }
     }, [dispatch, token]) 
 
@@ -35,6 +37,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
             dispatch(setPosts({ posts: response.data }));
         } catch (error) {
             console.error('Error fetching user posts:', error);
+            toast.error('Error fetching user posts')
         }
     }, [dispatch, token, userId]) 
 

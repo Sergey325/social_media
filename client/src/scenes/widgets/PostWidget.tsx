@@ -11,6 +11,7 @@ import {BsChatLeft} from "react-icons/bs";
 import {Comment} from "../../../types";
 import ToolTip from "../../components/ToolTip";
 import Comments from "../../components/Comments";
+import toast from "react-hot-toast";
 
 type Props = {
     postId: string,
@@ -56,6 +57,7 @@ const PostWidget = ({
             dispatch(setPost({post: updatedPost}));
         } catch (error) {
             console.error("Error patching like:", error);
+            toast.error("Error patching like")
         }
     };
 

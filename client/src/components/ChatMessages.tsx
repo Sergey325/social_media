@@ -30,7 +30,7 @@ const ChatMessages = memo(({messages}: Props) => {
     }
 
     return (
-        <div className="flex flex-col max-h-[77.7vh] pr-2 overflow-y-auto" ref={chatMessagesRef}>
+        <div className="flex flex-col max-h-[72vh] pr-2 overflow-y-auto" ref={chatMessagesRef}>
             {
                 messages?.map((message, index) => {
                     const isLast = isLastMessage(messages, index);

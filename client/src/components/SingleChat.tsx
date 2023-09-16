@@ -163,7 +163,7 @@ const SingleChat = ({chat}: Props) => {
                         <BiSolidCheckShield size={28} className="text-primary-main"/>
                     </ToolTip>
                 </div>
-                <div className="px-2 sm:px-6">
+                <div className="px-2 sm:px-6 mt-16">
                     <ChatMessages messages={messages}/>
                     <div className="h-[25px] -mt-2 pb-1">
                         {isTyping && <BeatLoader color="#33DDFB" size={15} />}

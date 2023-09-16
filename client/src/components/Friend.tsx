@@ -6,6 +6,7 @@ import {setFriends} from "../state";
 import axios from "axios";
 import {MdOutlinePersonRemoveAlt1, MdPersonAddAlt} from "react-icons/md";
 import {User} from "../../types";
+import toast from "react-hot-toast";
 type Props = {
     friendId: string,
     name: string,
@@ -36,7 +37,8 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
             const updatedFriends = response.data;
             dispatch(setFriends({ friends: updatedFriends }));
         } catch (error) {
-            console.error("Error patching friend:", error);
+            console.error("Error patching friend: ", error)
+            toast.error("Error patching friend");
         }
     };
 

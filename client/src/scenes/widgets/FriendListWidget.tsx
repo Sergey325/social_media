@@ -6,15 +6,17 @@ import {setFriends} from "../../state";
 import WidgetWrapper from "../../components/WidgetWrapper";
 import Friend from "../../components/Friend";
 import {FriendType} from "../../../types"
+import toast from "react-hot-toast";
 
 type Props = {
     userId: string
+    visited?: boolean
 };
 
-const FriendListWidget = ({userId}: Props) => {
+const FriendListWidget = ({userId, visited}: Props) => {
     const dispatch = useDispatch();
     const token = useSelector((state: RootState) => state.token);
-    const friends = useSelector((state: RootState) => state.currentUser?.friends) as FriendType[];
+    const friends = useSelector((state: RootState) => !visited ? state.currentUser?.friends : state.visitedUser?.friends) as FriendType[];
 
     const getFriends = useCallback(async () => {
         try {
@@ -22,11 +24,12 @@ const FriendListWidget = ({userId}: Props) => {
                 headers: {Authorization: `Bearer ${token}`},
             });
             const data = response.data;
-            dispatch(setFriends({friends: data}));
+            console.log(data)
+            dispatch(setFriends({friends: data, visited}));
         } catch (error) {
-            console.error("Error fetching friends:", error);
+            toast.error(`Error fetching friends: ${error}`);
         }
-    }, [dispatch, token, userId]) 
+    }, [dispatch, token, userId, visited]) 
 
     useEffect(() => {
         getFriends();

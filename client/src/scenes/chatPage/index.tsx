@@ -16,7 +16,7 @@ const ChatPage = () => {
                 <div className={`${chat && "hidden lg:block"} lg:w-[33%] flex flex-col gap-8`}>
                     <ChatListWidget/>
                 </div>
-                <div className={`${!chat ? "hidden lg:block mt-8" : "mt-0"} lg:basis-7/12 grow max-h-[77.7vh] lg:mt-0`}>
+                <div className={`${!chat ? "hidden lg:block mt-8" : "mt-0"} lg:basis-7/12 grow max-h-[70vh] lg:mt-0`}>
                     <ChatWidget/>
                 </div>
             </div>
