@@ -2,7 +2,6 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import SingleChat from "../../components/SingleChat";
 
-
 const ChatWidget = () => {
     const chat = useSelector((state: RootState) => state.selectedChat)
 
