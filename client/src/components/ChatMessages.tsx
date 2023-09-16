@@ -31,27 +31,27 @@ const ChatMessages = memo(({messages}: Props) => {
 
     return (
         <div className="flex flex-col max-h-[72vh] pr-2 overflow-y-auto" ref={chatMessagesRef}>
-            {
-                messages?.map((message, index) => {
+            <div className="mt-[25px]">
+                {messages?.map((message, index) => {
                     const isLast = isLastMessage(messages, index);
                     return (
-                        <div key={message._id} className="flex items-center gap-2">
+                        <div key={message._id} className="flex  items-center gap-2">
                             <div className="w-[35px] h-[35px] -mt-4 ">
                                 {isLast && <UserImage imageUrl={message.sender.pictureUrl} sizeInPx={35}/>}
                             </div>
                             <div
                                 className={`
-                                    rounded-xl 
-                                    ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
-                                    py-2 pl-3 pr-12
-                                    text-base 
-                                    text-neutral-dark
-                                    transition
-                                    duration-300
-                                    break-words
-                                    relative
-                                    ${isLast ? "mb-4" : "mb-0.5"}
-                                `}
+                                rounded-xl 
+                                ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
+                                py-2 pl-3 pr-12
+                                text-base 
+                                text-neutral-dark
+                                transition
+                                duration-300
+                                break-words
+                                relative
+                                ${isLast ? "mb-4" : "mb-0.5"}
+                            `}
                             >
                                 <div className="">
                                     <span className="break-all">{message.content}</span>
@@ -59,12 +59,13 @@ const ChatMessages = memo(({messages}: Props) => {
 
                                 <span
                                     className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{formatDateTime(message.createdAt.toString())}
-                                </span>
+                            </span>
                             </div>
                         </div>
                     );
-                })
-            }
+                })}
+            </div>
+
         </div>
     );
 });
