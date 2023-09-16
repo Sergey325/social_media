@@ -138,71 +138,68 @@ const SingleChat = ({chat}: Props) => {
 
     return (
         <div className="min-h-full flex flex-col flex-grow justify-end relative">
-            <div className="min-h-full">
-                <div className="absolute top-0 left-0 w-full pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 ">
-                    <div className="flex gap-1 items-center">
-                        <ToolTip label="Back to chats">
-                            <div className="px-1">
-                                <IoChevronBackOutline
-                                    size={32}
-                                    className="text-neutral-medium hover:text-neutral-dark cursor-pointer transition duration-300"
-                                    onClick={() => dispatch(setSelectedChat({chat: null}))}
-                                />
-                            </div>
-                        </ToolTip>
-                        <div className="flex flex-col">
-                        <span className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer whitespace-nowrap max-w-min  transition duration-300">
-                            {friend.firstName} {friend.lastName}
-                        </span>
-                            <span className="text-neutral-medium text-sm  transition duration-300">
-                            {friend.online ? "online" : "last seen recently"}
-                        </span>
+            <div className="absolute top-0 left-0 w-full pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 ">
+                <div className="flex gap-1 items-center">
+                    <ToolTip label="Back to chats">
+                        <div className="px-1">
+                            <IoChevronBackOutline
+                                size={32}
+                                className="text-neutral-medium hover:text-neutral-dark cursor-pointer transition duration-300"
+                                onClick={() => dispatch(setSelectedChat({chat: null}))}
+                            />
                         </div>
-                    </div>
-                    <ToolTip label="Stable connection">
-                        <BiSolidCheckShield size={28} className="text-primary-main"/>
                     </ToolTip>
+                    <div className="flex flex-col">
+                    <span className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer whitespace-nowrap max-w-min  transition duration-300">
+                        {friend.firstName} {friend.lastName}
+                    </span>
+                        <span className="text-neutral-medium text-sm  transition duration-300">
+                        {friend.online ? "online" : "last seen recently"}
+                    </span>
+                    </div>
                 </div>
-                <div className="px-2 sm:px-6">
-                    <ChatMessages messages={messages}/>
-                    <div className="h-[25px] -mt-2 pb-1">
-                        {isTyping && <BeatLoader color="#33DDFB" size={15} />}
-                    </div>
-                    <div className="flex items-center justify-end text-sm gap-2 ">
-                        <input
-                            type="text"
-                            disabled={isLoading}
-                            onKeyUp={(event) => {
-                                if (event.key === "Enter") {
-                                    event.preventDefault()
-                                    sendMessage()
-                                }
-                            }}
-                            onChange={handleChange}
-                            value={newMessage}
-                            className="
-                            w-full
-                            appearance-none
-                            outline-none
-                            py-2
-                            px-4
-                            rounded-3xl
-                            bg-neutral-light
-                            text-neutral-dark
-                            transition
-                            duration-300
-                        "
-                            placeholder={"Enter a message..."}
-                        />
-                        <IoMdSend
-                            size={32}
-                            className="text-neutral-main hover:text-primary-main cursor-pointer transition"
-                            onClick={sendMessage}
-                        />
-                    </div>
+                <ToolTip label="Stable connection">
+                    <BiSolidCheckShield size={28} className="text-primary-main"/>
+                </ToolTip>
+            </div>
+            <ChatMessages messages={messages}/>
+            <div className="absolute bottom-0 w-full left-0 px-1 sm:px-4">
+                <div className="h-[25px] -mt-2 pb-1">
+                    {isTyping && <BeatLoader color="#33DDFB" size={15} />}
+                </div>
+                <div className=" flex items-center justify-end text-sm gap-2 ">
+                    <input
+                        type="text"
+                        disabled={isLoading}
+                        onKeyUp={(event) => {
+                            if (event.key === "Enter") {
+                                event.preventDefault()
+                                sendMessage()
+                            }
+                        }}
+                        onChange={handleChange}
+                        value={newMessage}
+                        className="
+                        w-full
+                        appearance-none
+                        outline-none
+                        py-2
+                        px-4
+                        rounded-3xl
+                        bg-neutral-light
+                        text-neutral-dark
+                        transition
+                        duration-300
+                    "
+                        placeholder={"Enter a message..."}
+                    />
+                    <IoMdSend
+                        size={32}
+                        className="text-neutral-main hover:text-primary-main cursor-pointer transition"
+                        onClick={sendMessage}
+                    />
                 </div>
             </div>
-
         </div>
     );
 };
