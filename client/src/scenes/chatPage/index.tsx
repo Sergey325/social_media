@@ -12,7 +12,7 @@ const ChatPage = () => {
             <div className="">
                 <Navbar/>
             </div>
-            <div className="min-h-full mt-16 lg:mt-16 grow block lg:flex w-full pt-7 sm:pt-8 pb-6 px-5 sm:px-20 gap-8 justify-between">
+            <div className="min-h-full mt-12 lg:mt-16 grow block lg:flex w-full pt-7 sm:pt-8 pb-6 px-5 sm:px-20 gap-8 justify-between">
                 <div className={`${chat && "hidden lg:block"} lg:w-[33%] flex flex-col gap-8`}>
                     <ChatListWidget/>
                 </div>
