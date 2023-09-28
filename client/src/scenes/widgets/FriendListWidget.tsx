@@ -24,7 +24,6 @@ const FriendListWidget = ({userId, visited}: Props) => {
                 headers: {Authorization: `Bearer ${token}`},
             });
             const data = response.data;
-            console.log(data)
             dispatch(setFriends({friends: data, visited}));
         } catch (error) {
             toast.error(`Error fetching friends: ${error}`);

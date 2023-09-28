@@ -4,6 +4,7 @@ import {Message, User} from "../../types";
 import UserImage from "./UserImage";
 import {formatDateTime, isLastMessage} from "../utils/ChatLogic";
 import {memo, useEffect, useRef} from "react";
+import {differenceInCalendarDays} from "date-fns";
 
 type Props = {
     messages: Message[]
@@ -12,7 +13,6 @@ type Props = {
 const ChatMessages = memo(({messages}: Props) => {
     const chat = useSelector((state: RootState) => state.selectedChat)
     const {_id} = useSelector((state: RootState) => state.currentUser) as User
-
     const chatMessagesRef = useRef<HTMLDivElement | null>(null)
 
     const scrollToBottom = () => {
@@ -43,7 +43,7 @@ const ChatMessages = memo(({messages}: Props) => {
                                 className={`
                                 rounded-xl 
                                 ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
-                                py-2 pl-3 pr-12
+                                py-2 pl-3 ${differenceInCalendarDays(new Date(), new Date(message.createdAt)) > 7 ? "pr-[72px]" : "pr-12"}
                                 text-base 
                                 text-neutral-dark
                                 transition
@@ -59,7 +59,7 @@ const ChatMessages = memo(({messages}: Props) => {
 
                                 <span
                                     className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{formatDateTime(message.createdAt.toString())}
-                            </span>
+                                </span>
                             </div>
                         </div>
                     );
