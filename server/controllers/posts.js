@@ -30,7 +30,8 @@ export const createPost = async (req, res) => {
 // READ
 export const getFeedPosts = async (req, res) => {
     try {
-        const posts = await Post.find().lean()
+        const {page, limit} = req.query
+        const posts = await Post.find().lean().sort({ createdAt: -1 }).limit(limit*page)
         const safePosts = posts.map((post) => ({
             ...post,
             createdAt: post.createdAt.toISOString(),
@@ -43,9 +44,14 @@ export const getFeedPosts = async (req, res) => {
 
 export const getUserPosts = async (req, res) => {
     try {
+        const {page, limit} = req.query
         const { userId } = req.params
-        const post = await Post.find({userId: userId})
-        res.status(201).json(post)
+        const posts = await Post.find({userId: userId}).lean().sort({ createdAt: -1 }).limit(limit*page)
+        const safePosts = posts.map((post) => ({
+            ...post,
+            createdAt: post.createdAt.toISOString(),
+        }));
+        res.status(201).json(safePosts)
     } catch (e) {
         res.status(404).json({ message: e.message})
     }

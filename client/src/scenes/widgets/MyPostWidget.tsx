@@ -34,7 +34,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
                 headers: { Authorization: `Bearer ${token}` }
             })
             .then(res => {
-                const posts = res.data
+                const posts = [...res.data].reverse()
                 dispatch(setPosts({posts}))
                 toast.success("Post has been created")
                 setImageUrl("")

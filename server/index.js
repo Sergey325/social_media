@@ -74,11 +74,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
             if (!chat.participants) return console.log("chat.users not defined");
 
-            chat.participants.forEach((user) => {
-                if (user !== newMessageReceived.sender._id) {
-                    socket.to(chat._id).emit("message received", newMessageReceived);
-                }
-            });
+            socket.to(chat._id).emit("message received", newMessageReceived);
         });
 
         // socket.on("disconnect", async () => {

@@ -64,7 +64,6 @@ const SingleChat = ({chat}: Props) => {
         socket.on("stop typing", () => setIsTyping(false));
         socket.on("message received", handleMessageReceived);
 
-
         return () => {
             socket.off("connected");
             socket.off("typing");
