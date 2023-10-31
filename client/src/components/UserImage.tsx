@@ -1,10 +1,12 @@
+import {memo} from "react";
+
 type Props = {
     imageUrl: string,
     sizeInPx?: number
 };
 
 
-const UserImage = ({imageUrl, sizeInPx = 60}: Props) => {
+const UserImage = memo(({imageUrl, sizeInPx = 60}: Props) => {
     return (
         <div style={{width: sizeInPx, height: sizeInPx}}>
             <img
@@ -14,6 +16,6 @@ const UserImage = ({imageUrl, sizeInPx = 60}: Props) => {
             />
         </div>
     );
-};
+});
 
 export default UserImage;

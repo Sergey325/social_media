@@ -13,7 +13,7 @@ import {BiSolidCheckShield} from "react-icons/bi";
 import {IoChevronBackOutline} from "react-icons/io5";
 import ToolTip from "./ToolTip";
 
-var socket: Socket, selectedChatCompare: Chat;
+var socket: Socket;
 
 type Props = {
     chat: Chat
@@ -21,7 +21,7 @@ type Props = {
 
 const SingleChat = ({chat}: Props) => {
     const [isLoading, setIsLoading] = useState(false)
-    const [messages, setMessages] = useState<Message[]>()
+    const [messages, setMessages] = useState<Message[]>([])
     const [newMessage, setNewMessage] = useState("")
     const [isTyping, setIsTyping] = useState(false)
     const [typing, setTyping] = useState(false)
@@ -51,35 +51,31 @@ const SingleChat = ({chat}: Props) => {
     }, [chat?._id, token])
 
     useEffect(() => {
+        const handleMessageReceived = (newMessageReceived: Message) => {
+            if (messages) {
+                setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
+            }
+        };
+
         socket = io(`${process.env.REACT_APP_ENDPOINT}`)
         socket.emit("setup", _id)
         socket.on("connected", () => setIsSocketConnected(true))
         socket.on("typing", () => setIsTyping(true));
         socket.on("stop typing", () => setIsTyping(false));
-    }, [])
+        socket.on("message received", handleMessageReceived);
+
+
+        return () => {
+            socket.off("connected");
+            socket.off("typing");
+            socket.off("stop typing");
+            socket.off("message received", handleMessageReceived);
+        };
+    }, [_id])
 
     useEffect(() => {
         getMessages()
-        selectedChatCompare = chat
-    }, [chat, getMessages])
-
-    useEffect(() => {
-        socket.on("message received", (newMessageReceived) => {
-            if (
-                !selectedChatCompare || // if chat is not selected or doesn't match current chat
-                selectedChatCompare._id !== newMessageReceived.chat._id
-            ) {
-                // if (!notification.includes(newMessageRecieved)) {
-                //     setNotification([newMessageRecieved, ...notification]);
-                //     setFetchAgain(!fetchAgain);
-                // }
-            } else {
-                if (messages) {
-                    setMessages([...messages, newMessageReceived]);
-                }
-            }
-        });
-    });
+    }, [getMessages])
 
     const sendMessage = async () => {
         if (newMessage && messages) {
