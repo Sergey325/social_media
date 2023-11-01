@@ -10,7 +10,6 @@ import FriendListWidget from "../widgets/FriendListWidget";
 
 const HomePage = () => {
     const user = useSelector((state: RootState) => state.currentUser as User);
-
     return (
         <>
             <Navbar/>

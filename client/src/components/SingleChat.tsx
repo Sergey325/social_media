@@ -8,10 +8,11 @@ import io, {Socket} from "socket.io-client";
 import {setSelectedChat} from "../state";
 import ChatMessages from "./ChatMessages";
 import {IoMdSend} from "react-icons/io";
-import {BeatLoader} from "react-spinners";
+import {BeatLoader, ClipLoader} from "react-spinners";
 import {BiSolidCheckShield} from "react-icons/bi";
 import {IoChevronBackOutline} from "react-icons/io5";
 import ToolTip from "./ToolTip";
+import {useNavigate} from "react-router-dom";
 
 var socket: Socket;
 
@@ -28,27 +29,42 @@ const SingleChat = ({chat}: Props) => {
     const [isSocketConnected, setIsSocketConnected] = useState(false)
     const token = useSelector((state: RootState) => state.token)
     const {_id} = useSelector((state: RootState) => state.currentUser) as User
-    const friend = chat.participants.find(participant => participant._id !== _id) as User
+    const friendId = (chat.participants.find(participant => participant._id !== _id) as User)._id
+    const [friend, setFriend] = useState<User>()
+    const [page, setPage] = useState(1)
+    const navigate = useNavigate()
+    const limit = 20
     const dispatch = useDispatch()
 
+    const getFriend = useCallback(async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/users/${friendId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = response.data;
+            setFriend(data)
+        } catch (error) {
+            toast.error(`Error fetching friend: ${error}`)
+        }
+    }, [friendId, token]);
+    
     const getMessages = useCallback(async () => {
         try {
             setIsLoading(true)
             const response = await axios.get(
                 `${process.env.REACT_APP_ENDPOINT}/messages/${chat._id}`,
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
+                    headers: {Authorization: `Bearer ${token}`},
+                    params: {page: page, limit: limit}
                 }
             )
-            setMessages(response.data)
+            setMessages([...response.data].reverse())
+            setPage(prevPage => prevPage + 1)
             setIsLoading(false)
-            socket.emit("join chat", chat._id);
         } catch (error) {
             toast.error(`Error getting messages: ${error}`)
         }
-    }, [chat?._id, token])
+    }, [chat._id, page, token, setPage])
 
     useEffect(() => {
         const handleMessageReceived = (newMessageReceived: Message) => {
@@ -63,18 +79,33 @@ const SingleChat = ({chat}: Props) => {
         socket.on("typing", () => setIsTyping(true));
         socket.on("stop typing", () => setIsTyping(false));
         socket.on("message received", handleMessageReceived);
+        socket.on("user online", () => {
+            setFriend((prevFriend) => {
+                return prevFriend ? { ...prevFriend, online: true } : prevFriend;
+            });
+        });
+        socket.on("user offline", () => {
+            setFriend((prevFriend) => {
+                return prevFriend ? { ...prevFriend, online: false } : prevFriend;
+            });
+        });
 
         return () => {
             socket.off("connected");
             socket.off("typing");
             socket.off("stop typing");
+            socket.off("user online");
+            socket.off("user offline");
             socket.off("message received", handleMessageReceived);
+            socket.disconnect()
         };
     }, [_id])
 
     useEffect(() => {
+        getFriend()
         getMessages()
-    }, [getMessages])
+        socket.emit("join chat", chat._id)
+    }, [])
 
     const sendMessage = async () => {
         if (newMessage && messages) {
@@ -103,7 +134,6 @@ const SingleChat = ({chat}: Props) => {
                 toast.error(`Error sending a message: ${error}`)
             }
         }
-
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,13 +157,14 @@ const SingleChat = ({chat}: Props) => {
         }, timerLength);
     };
 
-    if (!messages) {
+    if (!messages || !friend) {
         return null
     }
 
     return (
         <div className="min-h-full flex flex-col flex-grow justify-end relative">
-            <div className="absolute top-0 left-0 w-full pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 ">
+            <div
+                className="absolute top-0 left-0 w-full pr-5 py-1 flex justify-between items-center rounded-t-xl bg-neutral-light transition duration-300 drop-shadow-lg z-10 ">
                 <div className="flex gap-1 items-center">
                     <ToolTip label="Back to chats">
                         <div className="px-1">
@@ -145,22 +176,33 @@ const SingleChat = ({chat}: Props) => {
                         </div>
                     </ToolTip>
                     <div className="flex flex-col">
-                    <span className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer whitespace-nowrap max-w-min  transition duration-300">
-                        {friend.firstName} {friend.lastName}
-                    </span>
+                        <span
+                            className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer whitespace-nowrap max-w-min  transition duration-300"
+                            onClick={() => {
+                                navigate(`/profile/${friend._id}`);
+                                navigate(0);
+                            }}
+                        >
+                            {friend.firstName} {friend.lastName}
+                        </span>
                         <span className="text-neutral-medium text-sm  transition duration-300">
-                        {friend.online ? "online" : "last seen recently"}
-                    </span>
+                            {friend.online ? "online" : "offline"}
+                        </span>
                     </div>
                 </div>
-                <ToolTip label="Stable connection">
-                    <BiSolidCheckShield size={28} className="text-primary-main"/>
-                </ToolTip>
+                {
+                    isLoading ?
+                        <ClipLoader color="#33DDFB" size={28}/>
+                        :
+                        <ToolTip label="Stable connection">
+                            <BiSolidCheckShield size={28} className="text-primary-main"/>
+                        </ToolTip>
+                }
             </div>
-            <ChatMessages messages={messages}/>
+            <ChatMessages messages={messages} loadMore={getMessages}/>
             <div className="absolute bottom-0 w-full left-0 px-1 sm:px-4">
                 <div className="h-[25px] -mt-2 pb-1">
-                    {isTyping && <BeatLoader color="#33DDFB" size={15} />}
+                    {isTyping && <BeatLoader color="#33DDFB" size={15}/>}
                 </div>
                 <div className=" flex items-center justify-end text-sm gap-2 ">
                     <input

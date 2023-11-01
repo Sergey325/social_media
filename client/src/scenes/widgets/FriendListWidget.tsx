@@ -37,7 +37,6 @@ const FriendListWidget = ({userId, visited}: Props) => {
     if(!friends?.length){
         return null
     }
-
     return (
         <WidgetWrapper>
             <p className="text-neutral-dark text-base mb-3">
@@ -51,8 +50,8 @@ const FriendListWidget = ({userId, visited}: Props) => {
                         name={`${friend.firstName} ${friend.lastName}`}
                         subtitle={friend.occupation}
                         userPictureUrl={friend.pictureUrl}
-                    />
-                ))}
+                    />)
+                )}
             </div>
         </WidgetWrapper>
     );

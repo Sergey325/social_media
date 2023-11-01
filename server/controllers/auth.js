@@ -42,10 +42,20 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body
-        const user = await User.findOne({ email: email }).populate("friends", "-password")
+        const user = await User.findOne({ email: email })
 
-        user.online = true
-        await user.save()
+        const friends = await Promise.all(
+            user.friends.map((id) => User.findById(id))
+        );
+
+        const formattedFriends = friends.map(
+            ({ _id, firstName, lastName, occupation, location, pictureUrl }) => {
+                return { _id, firstName, lastName, occupation, location, pictureUrl };
+            })
+
+        const formattedUser = { ...user._doc, friends: formattedFriends, _id: user._id.toString()  };
+
+        console.log(formattedUser)
 
         if(!user){
             return res.status(400).json({ message: "User does not exist" })
@@ -59,7 +69,7 @@ export const login = async (req, res) => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
         delete user.password
 
-        res.status(200).json({ token, user })
+        res.status(200).json({ token, user: formattedUser })
     } catch (e) {
         res.status(500).json({ error: e.message })
     }

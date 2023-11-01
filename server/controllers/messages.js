@@ -6,9 +6,12 @@ import Chat from "../models/Chat.js";
 export const getAllMessages = async (req, res) => {
     try {
         const { chatId } = req.params
+        const { page, limit } = req.query
         const messages = await Message.find({ chat: chatId })
             .populate("sender", "firstName lastName pictureUrl email")
-            .populate("chat");
+            .populate("chat")
+            .sort({ createdAt: -1 })
+            .limit(page*limit);
         messages.map(message => message.createdAt.toISOString())
         res.status(200).json(messages)
     } catch (e) {

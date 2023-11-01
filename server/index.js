@@ -53,12 +53,17 @@ mongoose.connect(process.env.MONGO_URL, {
     io.on("connection", (socket) => {
         console.log("A user connected");
 
-        // let user;
+        let user;
 
         socket.on("setup", async (userId) => {
             socket.join(userId);
             socket.emit("connected");
-            // user = await User.findOne({ _id: userId });
+            user = await User.findOne({ _id: userId });
+            if (user) {
+                user.online = true;
+                await user.save();
+                socket.broadcast.emit("user online", user._id);
+            }
         });
 
         socket.on("join chat", (chatId) => {
@@ -77,14 +82,14 @@ mongoose.connect(process.env.MONGO_URL, {
             socket.to(chat._id).emit("message received", newMessageReceived);
         });
 
-        // socket.on("disconnect", async () => {
-        //     console.log("disconnect")
-        //     if (user) {
-        //         user.online = false;
-        //         await user.save();
-        //         socket.broadcast.emit("user offline", user._id);
-        //     }
-        // });
+        socket.on("disconnect", async () => {
+            if (user) {
+                user.online = false;
+                await user.save();
+                socket.broadcast.emit("user offline", user._id);
+            }
+            console.log(user._id, "disconnected")
+        });
     });
 
     server.listen(PORT, () => console.log(`Server Port: ${PORT}`));
