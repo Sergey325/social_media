@@ -75,7 +75,11 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
         } else {
             getPosts();
         }
-    }, [isProfile]);
+    }, [isProfile, loadMore]);
+
+    useEffect(() => {
+        setLoadMore(true)
+    }, []);
 
     const lastPostElementRef = useCallback(
         (node: HTMLDivElement | null) => {

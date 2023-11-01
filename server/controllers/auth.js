@@ -55,8 +55,6 @@ export const login = async (req, res) => {
 
         const formattedUser = { ...user._doc, friends: formattedFriends, _id: user._id.toString()  };
 
-        console.log(formattedUser)
-
         if(!user){
             return res.status(400).json({ message: "User does not exist" })
         }
