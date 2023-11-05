@@ -7,6 +7,7 @@ import {useSelector} from "react-redux"
 import {RootState} from "./index";
 import ToasterProvider from "./providers/ToasterProvider";
 import ChatPage from "./scenes/chatPage";
+import ScrollTo from "./components/ScrollToTop";
 
 function App() {
     const mode = useSelector((state: RootState) => state.mode)
@@ -39,6 +40,7 @@ function App() {
                     />
                 </Routes>
             </BrowserRouter>
+            <ScrollTo/>
             <ToasterProvider/>
         </div>
     );

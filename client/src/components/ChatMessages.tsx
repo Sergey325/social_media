@@ -97,10 +97,8 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
                             </div>
                         </div>
                     );
-
                 })}
             </div>
-
         </div>
     );
 });

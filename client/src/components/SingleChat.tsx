@@ -47,7 +47,7 @@ const SingleChat = ({chat}: Props) => {
             toast.error(`Error fetching friend: ${error}`)
         }
     }, [friendId, token]);
-    
+
     const getMessages = useCallback(async () => {
         try {
             setIsLoading(true)
@@ -105,7 +105,7 @@ const SingleChat = ({chat}: Props) => {
         getFriend()
         getMessages()
         socket.emit("join chat", chat._id)
-    }, [])
+    }, [chat])
 
     const sendMessage = async () => {
         if (newMessage && messages) {
