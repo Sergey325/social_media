@@ -77,7 +77,7 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
                                 className={`
                                 rounded-xl 
                                 ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
-                                py-2 pl-3 ${differenceInCalendarDays(new Date(), new Date(message.createdAt)) > 7 ? "pr-[72px]" : "pr-12"}
+                                py-2 pl-3 ${differenceInCalendarDays(new Date(), new Date(message.createdAt)) > 6 ? "pr-[72px]" : "pr-12"}
                                 text-base 
                                 text-neutral-dark
                                 transition
