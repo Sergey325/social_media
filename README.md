@@ -42,13 +42,27 @@ To install and run the project locally, follow these steps:
    cd client
    npm install
 
-5. **Set up environment variables:** Create a .env file in the project root and specify the required environment variables such as MONGO_URL, PORT, and others.
+5. **Set up environment variables:** You need to create two separate .env files for the client and the server in the project root directory. Below are the necessary environment variables for each: 
+   #### Client (.env in the client directory) 
+      ```bash
+      REACT_APP_CLOUDINARY_CLOUD_NAME=your_cloud_name
+      REACT_APP_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+      REACT_APP_ENDPOINT=your_endpoint
+      ```
+   Make sure to add the `.env` file to the `.gitignore` list to avoid exposing your secret keys.
+   #### Server (.env in the client directory) 
+      ```bash
+      MONGO_URL=your_mongo_url
+      PORT=your_port
+      FRONTEND=your_frontend_url
+      JWT_SECRET=your_jwt_secret
+
 
 6. **Start the server:**
    ```bash
     cd server
     npm start
-
+   
 7. **Start the client:**
    ```bash
     cd client
