@@ -1,4 +1,4 @@
-import {differenceInCalendarDays,differenceInWeeks, format} from "date-fns";
+import {differenceInCalendarDays, differenceInCalendarYears, format} from "date-fns";
 import {Message} from "../../types";
 
 export const isLastMessage = (messages: Message[], index: number) => {
@@ -12,17 +12,21 @@ export const isLastMessage = (messages: Message[], index: number) => {
     return false
 }
 
-export const formatDateTime = (dateTime: string) => {
+export const formatDateTime = (dateTime: Date) => {
     const date = new Date(dateTime);
     const now = new Date();
-    const daysDifference = differenceInCalendarDays(now, date);
-    const weeksDifference = differenceInWeeks(now, date);
+    const yearDifference = differenceInCalendarYears(now, date);
 
-    if (daysDifference < 1) {
-        return format(date, 'HH:mm');
-    } else if (weeksDifference < 1) {
-        return format(date, 'E');
+    if (yearDifference < 1) {
+        return format(date, 'MMMM d');
     } else {
         return format(date, 'dd.MM.yyyy');
     }
+}
+
+export const isNextDayMessage = (previousMessageDate: Date, currentMessageDate?: Date) => {
+    if (!currentMessageDate){
+        return differenceInCalendarDays(new Date(previousMessageDate),  Date.now()) !== 0
+    }
+    return differenceInCalendarDays(new Date(previousMessageDate),  new Date(currentMessageDate)) !== 0
 }

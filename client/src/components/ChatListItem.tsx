@@ -34,7 +34,7 @@ const ChatListItem = ({friend, isExistingChat = true, onClick, latestMessage}: P
                     </span>
                     {isExistingChat && latestMessage &&
                         <span className="">
-                            {formatDateTime(latestMessage.createdAt.toString())}
+                            {formatDateTime(latestMessage.createdAt)}
                         </span>
                     }
 

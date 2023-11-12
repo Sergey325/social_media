@@ -105,7 +105,7 @@ const SingleChat = ({chat}: Props) => {
         getFriend()
         getMessages()
         socket.emit("join chat", chat._id)
-    }, [chat])
+    }, [chat._id])
 
     const sendMessage = async () => {
         if (newMessage && messages) {

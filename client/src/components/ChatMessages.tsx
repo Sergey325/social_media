@@ -2,9 +2,9 @@ import {useSelector} from "react-redux";
 import {RootState} from "../index";
 import {Message, User} from "../../types";
 import UserImage from "./UserImage";
-import {formatDateTime, isLastMessage} from "../utils/ChatLogic";
+import {formatDateTime, isLastMessage, isNextDayMessage} from "../utils/ChatLogic";
 import {memo, useEffect, useRef, useState} from "react";
-import {differenceInCalendarDays} from "date-fns";
+import {format} from "date-fns";
 
 type Props = {
     messages: Message[],
@@ -52,7 +52,7 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
             scrollToBottom(false)
         }
         setPrevLength(messages.length)
-    }, [messages])
+    }, [messages.length])
 
     useEffect(() => {
         scrollToBottom(true)
@@ -68,16 +68,18 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
             <div className="">
                 {messages?.map((message, index) => {
                     const isLast = isLastMessage(messages, index);
+                    const isNextDay = isNextDayMessage(message.createdAt, messages[index+1]?.createdAt)
                     return (
-                        <div key={message._id} className="flex items-center gap-2">
-                            <div className="w-[35px] h-[35px] -mt-4 ">
-                                {isLast && <UserImage imageUrl={message.sender.pictureUrl} sizeInPx={35}/>}
-                            </div>
-                            <div
-                                className={`
+                        <>
+                            <div key={message._id} className="flex items-center gap-2">
+                                <div className="w-[35px] h-[35px] -mt-4 ">
+                                    {isLast && <UserImage imageUrl={message.sender.pictureUrl} sizeInPx={35}/>}
+                                </div>
+                                <div
+                                    className={`
                                 rounded-xl 
                                 ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
-                                py-2 pl-3 ${differenceInCalendarDays(new Date(), new Date(message.createdAt)) > 6 ? "pr-[72px]" : "pr-12"}
+                                py-2 pl-3 pr-12
                                 text-base 
                                 text-neutral-dark
                                 transition
@@ -86,16 +88,24 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
                                 relative
                                 ${isLast ? "mb-4" : "mb-0.5"}
                             `}
-                            >
-                                <div className="">
-                                    <span className="break-all">{message.content}</span>
-                                </div>
+                                >
+                                    <div className="">
+                                        <span className="break-all">{message.content}</span>
+                                    </div>
 
-                                <span
-                                    className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{formatDateTime(message.createdAt.toString())}
+                                    <span
+                                        className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{format(new Date(message.createdAt), 'HH:mm')}
                                 </span>
+                                </div>
                             </div>
-                        </div>
+                            {isNextDay && messages[index+1] &&
+                                <div className="flex justify-center">
+                                    <div className="rounded-xl bg-neutral-light text-neutral-dark py-0.5 px-2.5 text-sm font-normal">
+                                        {formatDateTime(messages[index+1]?.createdAt)}
+                                    </div>
+                                </div>
+                            }
+                        </>
                     );
                 })}
             </div>
