@@ -1,6 +1,7 @@
-import React, {ReactNode, useCallback, useEffect, useState} from "react";
+import React, {ReactNode, useCallback, useEffect, useRef, useState} from "react";
 import {BiSolidDownArrow} from "react-icons/bi";
 import {IconType} from "react-icons";
+import useClickOutside from "../../hooks/useClickOutside";
 
 type Option = {
     value: string
@@ -25,6 +26,8 @@ type Props = {
 const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, hrAfter, overflowHidden = false, selection = true}: Props) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+    const dropDownRef = useRef(null)
+    useClickOutside({ ref: dropDownRef, onClickOutside: () => setIsOpen(false) })
 
     const handleSelectOption = useCallback((option: Option) => {
         if(selectedOption?.value === option.value){
@@ -61,6 +64,7 @@ const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, 
                 touch-none
                 ${mainStyles}
             `}
+            ref={dropDownRef}
         >
             {
                 body ? body
@@ -102,8 +106,8 @@ const DropDown = ({placeholder, body, rounded, mainStyles, options, childStyle, 
                                 {hrAfter?.includes(key) && (
                                     <hr className="border-neutral-medium"/>
                                 )}
-                                <div className={`${childStyle} py-3`}>
-                                    <div className="flex items-center justify-center w-full" onClick={() => handleSelectOption(option)}>
+                                <div className={`${childStyle} py-3`} onClick={() => handleSelectOption(option)}>
+                                    <div className="flex items-center justify-center w-full" >
                                         {option.item && option.item}
                                         {option.icon ? <option.icon size={20}/> : option.label}
                                     </div>
