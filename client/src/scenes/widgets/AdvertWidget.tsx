@@ -1,4 +1,4 @@
-import WidgetWrapper from "../../components/WidgetWrapper";
+import WidgetWrapper from "../../components/UI/WidgetWrapper";
 
 const AdvertWidget = () => {
     return (

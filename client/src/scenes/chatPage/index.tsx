@@ -1,6 +1,6 @@
 import Navbar from "../navbar";
-import ChatListWidget from "../widgets/ChatListWidget";
-import ChatWidget from "../widgets/ChatWidget";
+import ChatListWidget from "./widgets/ChatListWidget";
+import ChatWidget from "./widgets/ChatWidget";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 

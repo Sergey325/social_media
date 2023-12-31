@@ -1,8 +1,8 @@
 import {useSelector} from "react-redux";
-import {RootState} from "../index";
-import {Message, User} from "../../types";
-import UserImage from "./UserImage";
-import {formatDateTime, isLastMessage, isNextDayMessage} from "../utils/ChatLogic";
+import {RootState} from "../../../index";
+import {Message, User} from "../../../../types";
+import UserImage from "../../../components/UserImage";
+import {formatDateTime, isLastMessage, isNextDayMessage} from "../../../utils/ChatLogic";
 import {memo, useEffect, useRef, useState} from "react";
 import {format} from "date-fns";
 
@@ -77,17 +77,17 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
                                 </div>
                                 <div
                                     className={`
-                                rounded-xl 
-                                ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
-                                py-2 pl-3 pr-12
-                                text-base 
-                                text-neutral-dark
-                                transition
-                                duration-300
-                                break-words
-                                relative
-                                ${isLast ? "mb-4" : "mb-0.5"}
-                            `}
+                                        rounded-xl 
+                                        ${_id === message.sender._id ? "bg-primary-main/80" : "bg-neutral-light"} 
+                                        py-2 pl-3 pr-12
+                                        text-base 
+                                        text-neutral-dark
+                                        transition
+                                        duration-300
+                                        break-words
+                                        relative
+                                        ${isLast ? "mb-4" : "mb-0.5"}
+                                    `}
                                 >
                                     <div className="">
                                         <span className="break-all">{message.content}</span>
@@ -95,12 +95,12 @@ const ChatMessages = memo(({ messages, loadMore }: Props) => {
 
                                     <span
                                         className="bottom-0.5 right-1.5 absolute text-xs text-neutral-dark/80 transition duration-300">{format(new Date(message.createdAt), 'HH:mm')}
-                                </span>
+                                    </span>
                                 </div>
                             </div>
                             {isNextDay && messages[index+1] &&
                                 <div className="flex justify-center">
-                                    <div className="rounded-xl bg-neutral-light text-neutral-dark py-0.5 px-2.5 text-sm font-normal">
+                                    <div className="rounded-xl bg-neutral-light text-neutral-dark py-0.5 px-2.5 text-sm font-normal transition duration-300">
                                         {formatDateTime(messages[index+1]?.createdAt)}
                                     </div>
                                 </div>

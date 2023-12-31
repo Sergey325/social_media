@@ -3,7 +3,7 @@ import {User} from "../../../types";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../../index";
-import WidgetWrapper from "../../components/WidgetWrapper";
+import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import UserImage from "../../components/UserImage";
 import {MdBusinessCenter, MdEdit, MdManageAccounts} from "react-icons/md";
 import {IoLocationSharp} from "react-icons/io5";
@@ -65,7 +65,9 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
                                 text-lg
                                 text-neutral-dark hover:text-primary-light
                                 cursor-pointer
-                                font-medium"
+                                font-medium
+                                transition duration-300
+                            "
                         >
                             {firstName} {lastName}
                         </span>

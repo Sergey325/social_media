@@ -4,9 +4,9 @@ import {useNavigate} from "react-router-dom";
 import {RootState} from "../../index";
 import {BiSolidMessageDetail} from "react-icons/bi";
 import {IoMdNotifications} from "react-icons/io";
-import DropDown from "../../components/DropDown/DropDown";
+import DropDown from "../../components/UI/DropDown";
 import {useEffect, useMemo, useState} from "react";
-import ThemeToggle from "../../components/ThemeToggle";
+import ThemeToggle from "./components/ThemeToggle";
 import {AiFillQuestionCircle} from "react-icons/ai";
 
 const Navbar = () => {

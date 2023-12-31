@@ -1,6 +1,6 @@
-import UserImage from "./UserImage";
-import {formatDateTime} from "../utils/ChatLogic";
-import {FriendType, Message} from "../../types";
+import UserImage from "../../../components/UserImage";
+import {formatDateTime} from "../../../utils/ChatLogic";
+import {FriendType, Message} from "../../../../types";
 import {useNavigate} from "react-router-dom";
 
 type Props = {
@@ -24,7 +24,7 @@ const ChatListItem = ({friend, isExistingChat = true, onClick, latestMessage}: P
             <div className="w-full flex flex-col overflow-hidden text-sm sm:text-base text-neutral-medium">
                 <div className="flex justify-between">
                     <span
-                        className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer max-w-min whitespace-nowrap"
+                        className="font-semibold text-neutral-dark hover:text-primary-light cursor-pointer max-w-min whitespace-nowrap transition duration-300"
                         onClick={() => {
                             navigate(`/profile/${friend._id}`);
                             navigate(0);
@@ -37,7 +37,6 @@ const ChatListItem = ({friend, isExistingChat = true, onClick, latestMessage}: P
                             {formatDateTime(latestMessage.createdAt)}
                         </span>
                     }
-
                 </div>
                 <span className="font-medium whitespace-nowrap overflow-hidden truncate">
                     {latestMessage?.content || "There's nothing here yet"}

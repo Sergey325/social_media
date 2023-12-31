@@ -1,7 +1,7 @@
 import {MdDarkMode, MdLightMode} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
-import {setMode} from "../state";
-import {RootState} from "../index";
+import {setMode} from "../../../state";
+import {RootState} from "../../../index";
 
 
 const ThemeToggle = () => {

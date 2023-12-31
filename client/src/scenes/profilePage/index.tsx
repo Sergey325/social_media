@@ -11,6 +11,7 @@ import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidgets";
 import {setVisitedUser} from "../../state";
 import toast from "react-hot-toast";
+import {ClipLoader} from "react-spinners";
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -40,19 +41,27 @@ const ProfilePage = () => {
     return (
         <div>
             <Navbar/>
-            <div className="lg:flex w-full mt-16 py-8 px-[6%] justify-center gap-8">
-                <div className="lg:basis-1/4 flex flex-col gap-8 pb-8 lg:pb-0">
-                    <UserWidget userId={userId} pictureUrl={visitedUser.pictureUrl}/>
-                    <FriendListWidget userId={userId} visited/>
+            {
+                visitedUser._id === userId
+                ?
+                <div className="lg:flex w-full mt-16 py-8 px-[6%] justify-center gap-8">
+                    <div className="lg:basis-1/4 flex flex-col gap-8 pb-8 lg:pb-0">
+                        <UserWidget userId={userId} pictureUrl={visitedUser._id === userId ? visitedUser.pictureUrl : ""}/>
+                        <FriendListWidget userId={userId} visited/>
+                    </div>
+                    <div className="lg:basis-5/12 flex flex-col">
+                        {userId === currentUser._id ?
+                            <MyPostWidget pictureUrl={currentUser.pictureUrl}/>
+                            : <div className="-mt-8"></div>
+                        }
+                        <PostsWidget userId={userId} isProfile/>
+                    </div>
                 </div>
-                <div className="lg:basis-5/12 flex flex-col">
-                    {userId === currentUser._id ?
-                        <MyPostWidget pictureUrl={currentUser.pictureUrl}/>
-                        : <div className="-mt-8"></div>
-                    }
-                    <PostsWidget userId={userId} isProfile/>
+                :
+                <div className="flex justify-center items-center h-[100vh]">
+                    <ClipLoader  color="#33DDFB" size={100}/>
                 </div>
-            </div>
+            }
         </div>
     );
 };

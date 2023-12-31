@@ -5,11 +5,11 @@ import {User} from "../../../types";
 import axios from "axios";
 import {setPosts} from "../../state";
 import toast from "react-hot-toast";
-import WidgetWrapper from "../../components/WidgetWrapper";
+import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import UserImage from "../../components/UserImage";
-import ImageUpload from "../../components/ImageUpload";
+import ImageUpload from "../../components/UI/ImageUpload";
 import {ImAttachment} from "react-icons/im";
-import Button from "../../components/Button";
+import Button from "../../components/UI/Button";
 
 type Props = {
     pictureUrl: string

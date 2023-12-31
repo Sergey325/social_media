@@ -3,7 +3,7 @@ import {RootState} from "../../index";
 import {useCallback, useEffect} from "react";
 import axios from "axios";
 import {setFriends} from "../../state";
-import WidgetWrapper from "../../components/WidgetWrapper";
+import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import Friend from "../../components/Friend";
 import {FriendType} from "../../../types"
 import toast from "react-hot-toast";

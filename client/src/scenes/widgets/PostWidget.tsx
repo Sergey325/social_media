@@ -3,13 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {setPost} from "../../state";
 import axios from "axios";
-import WidgetWrapper from "../../components/WidgetWrapper";
+import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import Friend from "../../components/Friend";
 import {AiOutlineShareAlt} from "react-icons/ai";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {BsChatLeft} from "react-icons/bs";
 import {Comment} from "../../../types";
-import ToolTip from "../../components/ToolTip";
+import ToolTip from "../../components/UI/ToolTip";
 import Comments from "../../components/Comments";
 import toast from "react-hot-toast";
 

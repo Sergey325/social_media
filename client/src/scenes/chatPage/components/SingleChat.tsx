@@ -1,17 +1,17 @@
 import {useCallback, useEffect, useState} from "react";
-import {Chat, Message, User} from "../../types";
+import {Chat, Message, User} from "../../../../types";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../index";
+import {RootState} from "../../../index";
 import axios from "axios";
 import toast from "react-hot-toast";
 import io, {Socket} from "socket.io-client";
-import {setSelectedChat} from "../state";
+import {setSelectedChat} from "../../../state";
 import ChatMessages from "./ChatMessages";
 import {IoMdSend} from "react-icons/io";
 import {BeatLoader, ClipLoader} from "react-spinners";
 import {BiSolidCheckShield} from "react-icons/bi";
 import {IoChevronBackOutline} from "react-icons/io5";
-import ToolTip from "./ToolTip";
+import ToolTip from "../../../components/UI/ToolTip";
 import {useNavigate} from "react-router-dom";
 
 var socket: Socket;

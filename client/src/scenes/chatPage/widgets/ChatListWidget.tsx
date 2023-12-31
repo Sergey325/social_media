@@ -2,11 +2,11 @@ import {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../index";
-import {Chat, FriendType, User} from "../../../types";
-import WidgetWrapper from "../../components/WidgetWrapper";
-import {setSelectedChat} from "../../state";
-import ChatListItem from "../../components/ChatListItem";
+import {RootState} from "../../../index";
+import {Chat, FriendType, User} from "../../../../types";
+import WidgetWrapper from "../../../components/UI/WidgetWrapper";
+import {setSelectedChat} from "../../../state";
+import ChatListItem from "../components/ChatListItem";
 
 const ChatListWidget = () => {
     const {_id, friends} = useSelector((state: RootState) => state.currentUser) as User

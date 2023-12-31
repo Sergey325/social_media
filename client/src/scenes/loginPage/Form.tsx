@@ -4,9 +4,9 @@ import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm, FieldValues} from "react-hook-form";
 import axios from "axios";
 import {setLogin} from "../../state";
-import Button from "../../components/Button";
-import FormInput from "../../components/FormInput";
-import ImageUpload from "../../components/ImageUpload";
+import Button from "../../components/UI/Button";
+import FormInput from "../../components/UI/FormInput";
+import ImageUpload from "../../components/UI/ImageUpload";
 import toast from 'react-hot-toast';
 
 const Form = () => {
