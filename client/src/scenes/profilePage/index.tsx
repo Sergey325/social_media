@@ -36,7 +36,7 @@ const ProfilePage = () => {
         getUser();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    if (!userId || !visitedUser) return null;
+    // if (!userId || !visitedUser) return null;
 
     return (
         <div>
@@ -46,7 +46,8 @@ const ProfilePage = () => {
                 ?
                 <div className="lg:flex w-full mt-16 py-8 px-[6%] justify-center gap-8">
                     <div className="lg:basis-1/4 flex flex-col gap-8 pb-8 lg:pb-0">
-                        <UserWidget userId={userId} pictureUrl={visitedUser._id === userId ? visitedUser.pictureUrl : ""}/>
+                        <UserWidget userId={userId}
+                                    pictureUrl={visitedUser._id === userId ? visitedUser.pictureUrl : ""}/>
                         <FriendListWidget userId={userId} visited/>
                     </div>
                     <div className="lg:basis-5/12 flex flex-col">
