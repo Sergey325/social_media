@@ -1,7 +1,6 @@
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {RootState} from "../../index";
-import {setPost} from "../../state";
 import axios from "axios";
 import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import Friend from "../../components/Friend";
@@ -37,11 +36,10 @@ const PostWidget = ({
     comments
 }: Props) => {
     const [isComments, setIsComments] = useState(false);
-    const dispatch = useDispatch();
+    const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
     const token = useSelector((state: RootState) => state.token);
     const loggedInUserId = useSelector((state: RootState) => state.currentUser?._id) as string;
-    const isLiked = Boolean(likes[loggedInUserId]);
-    const likeCount = Object.keys(likes).length;
+    const [isLiked, setIsLiked] = useState(Boolean(likes[loggedInUserId]))
 
     const patchLike = async () => {
         try {
@@ -54,7 +52,8 @@ const PostWidget = ({
                 }
             });
             const updatedPost = response.data;
-            dispatch(setPost({post: updatedPost}));
+            setIsLiked(Boolean(updatedPost.likes[loggedInUserId]))
+            setLikeCount(Object.keys(updatedPost.likes).length)
         } catch (error) {
             console.error("Error patching like:", error);
             toast.error("Error patching like")
@@ -100,7 +99,7 @@ const PostWidget = ({
                 </ToolTip>
             </div>
             {isComments &&
-                <Comments postId={postId} comments={comments}/>
+                <Comments postId={postId} postComments={comments}/>
             }
         </WidgetWrapper>
     );

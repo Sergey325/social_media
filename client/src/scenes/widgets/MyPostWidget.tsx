@@ -3,13 +3,13 @@ import {useState} from "react";
 import {RootState} from "../../index";
 import {User} from "../../../types";
 import axios from "axios";
-import {setPosts} from "../../state";
 import toast from "react-hot-toast";
 import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import UserImage from "../../components/UserImage";
 import ImageUpload from "../../components/UI/ImageUpload";
 import {ImAttachment} from "react-icons/im";
 import Button from "../../components/UI/Button";
+import {setPosts} from "../../state";
 
 type Props = {
     pictureUrl: string
@@ -92,7 +92,7 @@ const MyPostWidget = ({pictureUrl}: Props) => {
                         <ImAttachment size={20} />
                         <span className="text-sm sm:text-base">Attachment</span>
                     </div>
-                    <div className="w-[110px] text-xs sm:text-sm font-medium">
+                    <div className="w-[110px] text-xs sm:text-sm text-neutral-700 font-medium">
                         <Button label="POST" onClick={handlePost} />
                     </div>
                 </div>

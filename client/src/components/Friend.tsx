@@ -16,6 +16,7 @@ type Props = {
 
 const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
     const dispatch = useDispatch();
+    const currentUserID = useSelector((state: RootState) => state.currentUser?._id)
     const navigate = useNavigate();
     const _id = useSelector((state: RootState) => state.currentUser?._id);
     const token = useSelector((state: RootState) => state.token);
@@ -52,7 +53,7 @@ const Friend = ({ friendId, name, subtitle, userPictureUrl}: Props) => {
                 <div
                     className="flex flex-col"
                     onClick={() => {
-                        navigate(`/profile/${friendId}`);
+                        navigate(currentUserID !== friendId ? `/profile/${friendId}` : "/home");
                         navigate(0);
                     }}
                 >

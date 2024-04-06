@@ -5,7 +5,7 @@ import axios from "axios";
 import {setFriends} from "../../state";
 import WidgetWrapper from "../../components/UI/WidgetWrapper";
 import Friend from "../../components/Friend";
-import {FriendType} from "../../../types"
+import {FriendType, User} from "../../../types"
 import toast from "react-hot-toast";
 
 type Props = {
@@ -15,6 +15,7 @@ type Props = {
 
 const FriendListWidget = ({userId, visited}: Props) => {
     const dispatch = useDispatch();
+    const currentUser = useSelector((state: RootState) => state.currentUser) as User
     const token = useSelector((state: RootState) => state.token);
     const friends = useSelector((state: RootState) => !visited ? state.currentUser?.friends : state.visitedUser?.friends) as FriendType[];
 
@@ -32,7 +33,13 @@ const FriendListWidget = ({userId, visited}: Props) => {
 
     useEffect(() => {
         getFriends();
-    }, [getFriends])
+
+        return () => {
+            if (currentUser._id !== userId) {
+                dispatch(setFriends({friends: [], visited}))
+            }
+        };
+    }, [currentUser._id, dispatch, getFriends, userId])
 
     if(!friends?.length){
         return null

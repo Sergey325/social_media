@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react";
 import {User} from "../../../types";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -9,36 +8,15 @@ import {MdBusinessCenter, MdEdit, MdManageAccounts} from "react-icons/md";
 import {IoLocationSharp} from "react-icons/io5";
 import {AiOutlineTwitter} from "react-icons/ai";
 import {BsLinkedin} from "react-icons/bs";
-import axios from "axios";
-import toast from "react-hot-toast";
 
 type Props = {
-    userId: string,
+    user: User,
     pictureUrl: string
 }
 
-const UserWidget = ({userId, pictureUrl}: Props) => {
-    const [user, setUser] = useState<User>()
+const UserWidget = ({user, pictureUrl}: Props) => {
     const currentUser = useSelector((state: RootState) => state.currentUser) as User
-    const visitedUser = useSelector((state: RootState) => state.visitedUser) as User
     const navigate = useNavigate()
-    const token =  useSelector((state: RootState) => state.token);
-
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_ENDPOINT}/users/${userId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                setUser(response.data);
-            } catch (error) {
-                console.error("Error fetching user:", error);
-                toast.error("Error fetching user")
-            }
-        };
-        getUser();
-    }, [userId, token, visitedUser]);
-
 
     if(!user){
         return null
@@ -60,7 +38,7 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
                     <UserImage imageUrl={pictureUrl} sizeInPx={60}/>
                     <div className="flex flex-col">
                         <span
-                            onClick={() => navigate(`/profile/${userId}`)}
+                            onClick={() => navigate(currentUser._id !== user._id ? `/profile/${user._id}` : "/home") }
                             className="
                                 text-lg
                                 text-neutral-dark hover:text-primary-light
@@ -72,7 +50,7 @@ const UserWidget = ({userId, pictureUrl}: Props) => {
                             {firstName} {lastName}
                         </span>
                         <span className="text-neutral-medium">
-                            {userId === currentUser._id ? currentUser.friends.length : visitedUser.friends.length} friends
+                            {user.friends.length} friends
                         </span>
                     </div>
                 </div>

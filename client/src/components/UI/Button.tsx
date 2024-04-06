@@ -25,7 +25,7 @@ const Button = ({label, onClick, disabled, outline, small, icon: Icon, gradient}
                 ${outline ? "bg-slate-900" : "bg-primary-main"}
                 ${outline ? "shadow-[0_0_0_1px_rgba(100,116,139,1)]" : "shadow-[0_0_0_1px_rgba(6,182,212,1)]"}
                 ${outline ? "hover:shadow-[0_0_0_3px_rgba(100,116,139,1)]" : gradient ? "hover:drop-shadow-[0_2px_6px_rgba(137,63,237,0.90)]" : "hover:drop-shadow-[0_1px_3px_rgba(6,182,212,0.50)]"}
-                ${outline ? "text-gray-300" : "text-bkg-alt"}
+                ${outline ? "text-gray-300" : "text-neutral-600"}
                 ${gradient && "bg-gradient-to-br from-indigo-500 to-purple-600"}
                 ${gradient && ""}
                 ${small ? "py-1" : "py-2"}

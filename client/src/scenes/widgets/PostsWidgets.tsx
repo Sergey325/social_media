@@ -12,9 +12,9 @@ type Props = {
 };
 
 const PostsWidget = ({ userId, isProfile = false }: Props) => {
-    const dispatch = useDispatch();
     const posts = useSelector((state: RootState) => state.posts);
     const token = useSelector((state: RootState) => state.token);
+    const dispatch = useDispatch()
     const observer = useRef<IntersectionObserver | null>(null);
     const [page, setPage] = useState(1);
     const [loadMore, setLoadMore] = useState(true)
@@ -38,7 +38,7 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
             console.error('Error fetching posts:', error);
             toast.error('Error fetching posts')
         }
-    }, [dispatch, page, posts, token, setPage])
+    }, [page, posts, token, setPage])
 
     const getUserPosts = useCallback(async () => {
         try {
@@ -52,14 +52,14 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
                 setLoadMore(false)
             }
 
-            dispatch(setPosts({ posts: newPosts }))
             setPage(prevPage => prevPage + 1)
+            dispatch(setPosts({posts: newPosts}))
             
         } catch (error) {
             console.error('Error fetching user posts:', error);
             toast.error('Error fetching user posts')
         }
-    }, [dispatch, page, token, userId, setPage]);
+    }, [page, token, userId, setPage]);
 
     const loadMorePosts = useCallback(async () => {
         if (isProfile) {
@@ -75,10 +75,13 @@ const PostsWidget = ({ userId, isProfile = false }: Props) => {
         } else {
             getPosts();
         }
-    }, [isProfile, loadMore]);
+    }, [isProfile]);
 
     useEffect(() => {
         setLoadMore(true)
+        return () => {
+            dispatch(setPosts({posts: []}))
+        }
     }, []);
 
     const lastPostElementRef = useCallback(
