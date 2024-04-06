@@ -50,7 +50,7 @@ const Comments = ({postId, postComments}: Props) => {
 
     return (
         <div className="mt-2">
-            {comments.map((comment, i) => (
+            {comments?.map((comment, i) => (
                 <div key={`${postId}-${i}`}>
                     <hr className="border-neutral-500"/>
                     <div className="my-2 pl-1">

@@ -50,7 +50,7 @@ const UserWidget = ({user, pictureUrl}: Props) => {
                             {firstName} {lastName}
                         </span>
                         <span className="text-neutral-medium">
-                            {user.friends.length} friends
+                            {user.friends?.length} friends
                         </span>
                     </div>
                 </div>

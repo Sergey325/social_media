@@ -36,7 +36,7 @@ const PostWidget = ({
     comments
 }: Props) => {
     const [isComments, setIsComments] = useState(false);
-    const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
+    const [likeCount, setLikeCount] = useState(Object.keys(likes)?.length);
     const token = useSelector((state: RootState) => state.token);
     const loggedInUserId = useSelector((state: RootState) => state.currentUser?._id) as string;
     const [isLiked, setIsLiked] = useState(Boolean(likes[loggedInUserId]))
@@ -91,7 +91,7 @@ const PostWidget = ({
                             onClick={() => setIsComments(!isComments)}
                             className="hover:text-neutral-mediumMain cursor-pointer"
                         />
-                        <span className="text-neutral-dark ">{comments.length}</span>
+                        <span className="text-neutral-dark ">{comments?.length}</span>
                     </div>
                 </div>
                 <ToolTip label="Share">
